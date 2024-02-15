@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface EmployeeRepository {
     List<EmployeeEntity> findallEmployee();
+
+    EmployeeEntity save(EmployeeEntity employeeEntity);
 }

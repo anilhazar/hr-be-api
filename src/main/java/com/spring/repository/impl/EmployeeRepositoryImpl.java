@@ -28,4 +28,17 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 
 
     }
+    @Override
+    public EmployeeEntity save(EmployeeEntity employeeEntity) {
+    Connection connection = sql2o.open();
+    Query query = connection.createQuery(EmployeeRepositoryConstants.SAVE);
+    query.addParameter("name", employeeEntity.getName());
+    query.addParameter("surname", employeeEntity.getSurname());
+    query.addParameter("gender", employeeEntity.getGender());
+    query.addParameter("age", employeeEntity.getAge());
+    query.addParameter("username", employeeEntity.getUsername());
+    query.addParameter("password", employeeEntity.getPassword());
+    query.executeUpdate();
+    return employeeEntity;
+    }
 }

@@ -1,13 +1,11 @@
 package com.spring.controller;
 
-import com.spring.model.dto.EmployeeDTO;
-import com.spring.model.entity.EmployeeEntity;
+import com.spring.model.dto.request.EmployeeCreateRequest;
+import com.spring.model.dto.response.EmployeeResponse;
 import com.spring.service.EmployeeService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -18,25 +16,22 @@ public class EmployeeController {
 
 
     public EmployeeController(final EmployeeService  employeeService) {
+
         this.employeeService = employeeService;
     }
 
     @GetMapping()
-    public List<EmployeeDTO> getAllEmployees() {
-        List<EmployeeEntity> employeeEntities = employeeService.findallEmployee();
-        List<EmployeeDTO> employeeDTOs = new ArrayList<>();
+    public ResponseEntity<List<EmployeeResponse>> getAllEmployees() {
 
-        for (EmployeeEntity employeeEntity : employeeEntities) {
-            EmployeeDTO employeeDTO = new EmployeeDTO();
-            employeeDTO.setName(employeeEntity.getName());
-            employeeDTO.setSurname(employeeEntity.getSurname());
-            employeeDTO.setAge(employeeEntity.getAge());
-            employeeDTO.setGender(employeeEntity.getGender());
-            employeeDTOs.add(employeeDTO);
-        }
-
-        return employeeDTOs;
+        return ResponseEntity.ok(employeeService.findallEmployee());
     }
+
+    @PostMapping
+    public ResponseEntity<EmployeeResponse> createEmployee(@RequestBody EmployeeCreateRequest employeeCreateRequest) {
+        EmployeeResponse employeeResponse = employeeService.createEmployee(employeeCreateRequest);
+        return ResponseEntity.ok(employeeResponse);
+    }
+
 
 
 

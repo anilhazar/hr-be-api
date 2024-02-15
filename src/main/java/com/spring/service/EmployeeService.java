@@ -1,9 +1,14 @@
 package com.spring.service;
 
+import com.spring.model.dto.request.EmployeeCreateRequest;
+import com.spring.model.dto.response.EmployeeResponse;
 import com.spring.model.entity.EmployeeEntity;
 
 import java.util.List;
 
 public interface EmployeeService  {
-    List<EmployeeEntity> findallEmployee();
+    List<EmployeeResponse> findallEmployee();
+
+    EmployeeResponse createEmployee(EmployeeCreateRequest employeeCreateRequest);
+
 }
