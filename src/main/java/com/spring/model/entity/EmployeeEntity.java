@@ -14,16 +14,25 @@ public class EmployeeEntity {
 
     private String password;
 
-    public EmployeeEntity(){};
+    public EmployeeEntity() {
+    }
 
     public EmployeeEntity(String name, String surname, String gender,
-                          int age, String username, String password){
-        this.name=name;
-        this.surname=surname;
-        this.gender=gender;
-        this.age=age;
-        this.username=username;
-        this.password=password;
+                          int age, String username, String password) {
+        this.name = name;
+        this.surname = surname;
+        this.gender = gender;
+        this.age = age;
+        this.username = username;
+        this.password = password;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -38,7 +47,7 @@ public class EmployeeEntity {
         this.surname = surname;
     }
 
-    public String getSurname(){
+    public String getSurname() {
         return surname;
     }
 
