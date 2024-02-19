@@ -8,4 +8,8 @@ public interface EmployeeRepository {
     List<EmployeeEntity> findallEmployee();
 
     EmployeeEntity save(EmployeeEntity employeeEntity);
+
+    EmployeeEntity update(EmployeeEntity employeeEntity);
+
+    EmployeeEntity findEmployeeById(Long id);
 }
