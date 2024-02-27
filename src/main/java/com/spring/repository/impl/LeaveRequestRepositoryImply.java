@@ -2,11 +2,13 @@ package com.spring.repository.impl;
 
 import com.spring.model.entity.LeaveRequestEntity;
 import com.spring.repository.LeaveRequestRepository;
+import com.spring.repository.mapping.LeaveRequestMapper;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Connection;
 import org.sql2o.Query;
 import org.sql2o.Sql2o;
 
+import java.util.List;
 import java.util.UUID;
 
 @Repository
@@ -32,5 +34,22 @@ public class LeaveRequestRepositoryImply implements LeaveRequestRepository {
                 query.executeUpdate();
             return  leaveRequestEntity;
 
+    }
+
+    public LeaveRequestEntity findLeaveRequestsById(Long id){
+        Connection connection = sql2o.open();
+        Query query = connection.createQuery(LeaveRequestRepositoryConstants.FIND_BY_ID);
+        query.addParameter("id", id);
+        query.setColumnMappings(LeaveRequestMapper.getColumnFieldMMappings());
+        return query.executeAndFetchFirst(LeaveRequestEntity.class);
+    }
+
+    @Override
+    public List<LeaveRequestEntity> list(Long id) {
+        Connection connection = sql2o.open();
+        Query query = connection.createQuery(LeaveRequestRepositoryConstants.LIST);
+        query.addParameter("id", id);
+        query.setColumnMappings(LeaveRequestMapper.getColumnFieldMMappings());
+        return  query.executeAndFetch(LeaveRequestEntity.class);
     }
 }

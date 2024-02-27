@@ -13,7 +13,7 @@ public class LeaveRequestCreateRequest {
     private Long employeeId;
 
     public static LeaveRequestEntity toLeaveRequestEntity(LeaveRequestCreateRequest leaveRequestCreateRequest){
-        return new LeaveRequestEntity(leaveRequestCreateRequest.requestType, Status.PENDING,
+        return new LeaveRequestEntity(leaveRequestCreateRequest.requestType, Status.pending,
                 leaveRequestCreateRequest.startDate, leaveRequestCreateRequest.endDate, leaveRequestCreateRequest.employeeId);
     }
 

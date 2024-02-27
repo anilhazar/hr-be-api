@@ -32,4 +32,5 @@ public enum EmployeeMapper {
     public static Map<String, String> getColumnFieldMappings() {
         return COLUMN_FIELD_MAPPINGS;
     }
+
 }
