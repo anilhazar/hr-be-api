@@ -1,8 +1,7 @@
 package com.spring.repository.impl;
 
-import org.sql2o.Connection;
 
-public class EmployeeRepositoryConstants {
+class EmployeeRepositoryConstants {
     static final String FIND_ALL = "SELECT id, name, surname, age, gender, username, password FROM employee";
 
     static final String SAVE = "INSERT INTO employee (name, surname, age, gender, username, password)"
@@ -15,5 +14,9 @@ public class EmployeeRepositoryConstants {
     static final String UPDATE = "UPDATE employee "
                                + "SET name = :name, surname = :surname, age = :age, gender = :gender, username = :username, password = :password "
                                + "WHERE id = :id";
+
+    private EmployeeRepositoryConstants() {
+        throw new IllegalStateException("Utility class");
+    }
 
 }
