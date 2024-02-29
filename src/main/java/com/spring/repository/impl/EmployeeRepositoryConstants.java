@@ -1,6 +1,6 @@
 package com.spring.repository.impl;
 
-public class EmployeeRepositoryConstants {
+class EmployeeRepositoryConstants {
     static final String FIND_ALL = "SELECT id, name, surname, age, gender, username, password FROM employee";
 
     static final String SAVE = "INSERT INTO employee (name, surname, age, gender, username, password)"
