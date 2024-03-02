@@ -34,16 +34,8 @@ public class LeaveRequestEntity {
         return requestType;
     }
 
-    public void setRequestType(RequestType requestType) {
-        this.requestType = requestType;
-    }
-
     public Status getStatus() {
         return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
     }
 
     public Date getCreateDate() {
@@ -58,10 +50,6 @@ public class LeaveRequestEntity {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
     public Date getEndDate() {
         return endDate;
     }
@@ -72,10 +60,6 @@ public class LeaveRequestEntity {
 
     public Long getEmployeeId() {
         return employeeId;
-    }
-
-    public void setEmployeeId(Long employeeId) {
-        this.employeeId = employeeId;
     }
 
     @Override
