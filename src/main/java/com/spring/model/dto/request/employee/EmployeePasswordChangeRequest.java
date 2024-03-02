@@ -1,4 +1,4 @@
-package com.spring.model.dto.request;
+package com.spring.model.dto.request.employee;
 
 public class EmployeePasswordChangeRequest {
    private String newPassword;
