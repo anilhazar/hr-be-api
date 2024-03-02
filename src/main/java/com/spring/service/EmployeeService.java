@@ -1,14 +1,13 @@
 package com.spring.service;
 
-import com.spring.model.dto.request.EmployeeCreateRequest;
-import com.spring.model.dto.request.EmployeePasswordChangeRequest;
+import com.spring.model.dto.request.employee.EmployeeCreateRequest;
+import com.spring.model.dto.request.employee.EmployeePasswordChangeRequest;
 import com.spring.model.dto.response.EmployeeResponse;
-import com.spring.model.entity.EmployeeEntity;
 
 import java.util.List;
 
 public interface EmployeeService  {
-    List<EmployeeResponse> findallEmployee();
+    List<EmployeeResponse> findAllEmployee();
 
     EmployeeResponse createEmployee(EmployeeCreateRequest employeeCreateRequest);
 

@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface LeaveRequestRepository {
 
-    LeaveRequestEntity save(LeaveRequestEntity leaveRequestEntity);
+    void save(LeaveRequestEntity leaveRequestEntity);
 
     LeaveRequestEntity findLeaveRequestsById(Long id);
 

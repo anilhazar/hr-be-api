@@ -1,4 +1,4 @@
-package com.spring.repository.impl;
+package com.spring.repository.impl.leaverequest;
 
 class LeaveRequestRepositoryConstants {
 
@@ -11,8 +11,9 @@ class LeaveRequestRepositoryConstants {
 
     static final String LIST = "SELECT id, request_type, status, create_date, start_date, end_date, employee_id "
             + "FROM leave_request "
-            + "WHERE employee_id = :id";
+            + "WHERE employee_id = :employeeId";
 
+    private LeaveRequestRepositoryConstants(){throw new IllegalStateException("Utility class");}
 }
 
 
