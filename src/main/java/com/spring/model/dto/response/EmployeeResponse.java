@@ -13,8 +13,8 @@ public class EmployeeResponse {
 
     public static EmployeeResponse employeeEntityToEmployeeResponse(EmployeeEntity employeeEntity){
         EmployeeResponse employeeResponse = new EmployeeResponse();
-        employeeResponse.setName(employeeEntity.getName());
-        employeeResponse.setSurname(employeeEntity.getSurname());
+        employeeResponse.setName(employeeEntity.getFirstName());
+        employeeResponse.setSurname(employeeEntity.getLastName());
         employeeResponse.setAge(employeeEntity.getAge());
         employeeResponse.setGender(employeeEntity.getGender());
         return employeeResponse;
@@ -29,32 +29,18 @@ public class EmployeeResponse {
         return employeeResponses;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
 
-    public String getSurname() {
-        return surname;
-    }
 
     public void setSurname(String surname) {
         this.surname = surname;
     }
 
-    public int getAge() {
-        return age;
-    }
 
     public void setAge(int age) {
         this.age = age;
-    }
-
-    public String getGender() {
-        return gender;
     }
 
     public void setGender(String gender) {

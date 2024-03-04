@@ -1,7 +1,7 @@
 package com.spring.controller;
 
-import com.spring.model.dto.request.EmployeeCreateRequest;
-import com.spring.model.dto.request.EmployeePasswordChangeRequest;
+import com.spring.model.dto.request.employee.EmployeeCreateRequest;
+import com.spring.model.dto.request.employee.EmployeePasswordChangeRequest;
 import com.spring.model.dto.response.EmployeeResponse;
 import com.spring.service.EmployeeService;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,6 @@ public class EmployeeController {
 
     private final EmployeeService employeeService;
 
-
     public EmployeeController(final EmployeeService  employeeService) {
 
         this.employeeService = employeeService;
@@ -25,17 +24,17 @@ public class EmployeeController {
 
     public ResponseEntity<List<EmployeeResponse>> getAllEmployees() {
 
-        return ResponseEntity.ok(employeeService.findallEmployee());
+        return ResponseEntity.ok(employeeService.findAllEmployee());
     }
 
     @PostMapping("/employee")
-    public ResponseEntity<EmployeeResponse> createEmployee(@RequestBody final EmployeeCreateRequest employeeCreateRequest) {
-        EmployeeResponse employeeResponse = employeeService.createEmployee(employeeCreateRequest);
-        return ResponseEntity.ok(employeeResponse);
+    public ResponseEntity<Void> createEmployee(@RequestBody final EmployeeCreateRequest employeeCreateRequest) {
+        employeeService.createEmployee(employeeCreateRequest);
+        return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/password/{id}")
-    public ResponseEntity<Void> changePassword(@PathVariable final Long id, @RequestBody final EmployeePasswordChangeRequest employeePasswordChangeRequest){
+    @PutMapping("/employee/{id}/password")
+    public ResponseEntity<Void> changePassword(@PathVariable final Long id, @RequestBody final EmployeePasswordChangeRequest employeePasswordChangeRequest) {
         employeeService.changeEmployeePassword(id, employeePasswordChangeRequest);
         return ResponseEntity.ok().build();
     }

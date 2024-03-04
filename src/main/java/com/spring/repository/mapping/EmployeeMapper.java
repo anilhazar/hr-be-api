@@ -7,9 +7,8 @@ public enum EmployeeMapper {
     ID("ID", "id"),
     FIRST_NAME("FIRST_NAME", "firstName"),
     LAST_NAME("LAST_NAME", "lastName"),
-    EMAIL("EMAIL", "email"),
     GENDER("GENDER", "gender"),
-    ROLE("ROLE", "role"),
+    AGE("age", "age"),
     BIRTHDAY("BIRTHDAY", "birthday"),
     USERNAME("USERNAME", "username"),
     PASSWORD("PASSWORD", "password");
@@ -33,4 +32,7 @@ public enum EmployeeMapper {
         return COLUMN_FIELD_MAPPINGS;
     }
 
+    public String getField() {
+        return field;
+    }
 }

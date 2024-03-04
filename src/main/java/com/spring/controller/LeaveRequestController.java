@@ -1,8 +1,7 @@
 package com.spring.controller;
 
-import com.spring.model.dto.request.LeaveRequestCreateRequest;
+import com.spring.model.dto.request.leaverequest.LeaveRequestCreateRequest;
 import com.spring.model.dto.response.LeaveRequestResponse;
-import com.spring.model.entity.LeaveRequestEntity;
 import com.spring.service.LeaveRequestService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,12 +18,12 @@ public class LeaveRequestController {
     }
 
     @PostMapping("/leave-request")
-    public ResponseEntity<LeaveRequestEntity> createLeaveRequest(@RequestBody LeaveRequestCreateRequest leaveRequestCreateRequest) {
-        LeaveRequestEntity leaveRequestEntity = leaveRequestService.createLeaveRequest(leaveRequestCreateRequest);
-        return ResponseEntity.ok(leaveRequestEntity);
+    public ResponseEntity<Void> createLeaveRequest(@RequestBody LeaveRequestCreateRequest leaveRequestCreateRequest) {
+        leaveRequestService.createLeaveRequest(leaveRequestCreateRequest);
+        return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/leave-requests/dates/{id}")
+    @GetMapping("/leave-request/{id}/dates/")
     public ResponseEntity<List<LeaveRequestResponse>> getLeaveRequests(@PathVariable Long id) {
 
         List<LeaveRequestResponse> leaveRequestResponseList = leaveRequestService.listLeaveRequests(id);

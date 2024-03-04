@@ -39,6 +39,9 @@ public enum LeaveRequestMapper {
         return COLUMN_FIELD_MAPPINGS;
     }
 
+    public String getField() {
+        return field;
+    }
 }
 
 

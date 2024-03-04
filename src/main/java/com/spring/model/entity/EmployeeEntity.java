@@ -2,9 +2,9 @@ package com.spring.model.entity;
 
 public class EmployeeEntity {
     private Long id;
-    private String name;
+    private String firstName;
 
-    private String surname;
+    private String lastName;
 
     private String gender;
 
@@ -17,10 +17,10 @@ public class EmployeeEntity {
     public EmployeeEntity() {
     }
 
-    public EmployeeEntity(String name, String surname, String gender,
+    public EmployeeEntity(String firstName, String lastName, String gender,
                           int age, String username, String password) {
-        this.name = name;
-        this.surname = surname;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.gender = gender;
         this.age = age;
         this.username = username;
@@ -35,29 +35,18 @@ public class EmployeeEntity {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getSurname() {
-        return surname;
+    public String getLastName() {
+        return lastName;
     }
 
     public String getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
 
     public int getAge() {
         return age;
@@ -71,9 +60,6 @@ public class EmployeeEntity {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
 
     public String getPassword() {
         return password;

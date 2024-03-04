@@ -1,6 +1,6 @@
 package com.spring.service.impl;
 
-import com.spring.model.dto.request.LeaveRequestCreateRequest;
+import com.spring.model.dto.request.leaverequest.LeaveRequestCreateRequest;
 import com.spring.model.dto.response.LeaveRequestResponse;
 import com.spring.model.entity.LeaveRequestEntity;
 import com.spring.repository.LeaveRequestRepository;
@@ -11,20 +11,18 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class LeaveRequestServiceImply implements LeaveRequestService {
+public class LeaveRequestServiceImpl implements LeaveRequestService {
 
     private final LeaveRequestRepository leaveRequestRepository;
 
-    public LeaveRequestServiceImply(LeaveRequestRepository leaveRequestRepository) {
+    public LeaveRequestServiceImpl(LeaveRequestRepository leaveRequestRepository) {
         this.leaveRequestRepository = leaveRequestRepository;
     }
 
     @Override
-    public LeaveRequestEntity createLeaveRequest(LeaveRequestCreateRequest leaveRequestCreateRequest) {
-        LeaveRequestEntity leaveRequestEntity = LeaveRequestCreateRequest.toLeaveRequestEntity(leaveRequestCreateRequest);
+    public void createLeaveRequest(LeaveRequestCreateRequest leaveRequestCreateRequest) {
+        LeaveRequestEntity leaveRequestEntity = leaveRequestCreateRequest.toLeaveRequestEntity();
         assignCurrentDate(leaveRequestEntity);
-        return leaveRequestRepository.save(leaveRequestEntity);
-
     }
 
     @Override

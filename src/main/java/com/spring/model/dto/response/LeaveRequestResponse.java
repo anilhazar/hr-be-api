@@ -17,16 +17,18 @@ public class LeaveRequestResponse {
     private Date endDate;
 
     public static LeaveRequestResponse leaveRequestEntityToResponse(LeaveRequestEntity leaveRequestEntity){
-        return new LeaveRequestResponse(leaveRequestEntity.getRequestType(), leaveRequestEntity.getStatus(),
-                leaveRequestEntity.getCreateDate(), leaveRequestEntity.getStartDate(), leaveRequestEntity.getEndDate());
+        return new LeaveRequestResponse(
+                leaveRequestEntity.getRequestType(),
+                leaveRequestEntity.getStatus(),
+                leaveRequestEntity.getCreateDate(),
+                leaveRequestEntity.getStartDate(),
+                leaveRequestEntity.getEndDate());
     }
 
     public static List<LeaveRequestResponse> leaveRequestEntityToResponse(List<LeaveRequestEntity> leaveRequestEntityList) {
         List<LeaveRequestResponse> leaveRequestResponses = new ArrayList<>();
         for (LeaveRequestEntity leaveRequestEntity : leaveRequestEntityList) {
-            leaveRequestResponses.add(new LeaveRequestResponse(leaveRequestEntity.getRequestType(), leaveRequestEntity.getStatus(),
-                    leaveRequestEntity.getCreateDate(), leaveRequestEntity.getStartDate(), leaveRequestEntity.getEndDate()));
-
+            leaveRequestResponses.add(leaveRequestEntityToResponse(leaveRequestEntity));
         }
         return leaveRequestResponses;
     }
@@ -37,25 +39,5 @@ public class LeaveRequestResponse {
         this.createDate = createDate;
         this.startDate = startDate;
         this.endDate = endDate;
-    }
-
-    public RequestType getRequestType() {
-        return requestType;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
     }
 }

@@ -7,9 +7,9 @@ import java.util.List;
 public interface EmployeeRepository {
     List<EmployeeEntity> findallEmployee();
 
-    EmployeeEntity save(EmployeeEntity employeeEntity);
+    void save(EmployeeEntity employeeEntity);
 
-    EmployeeEntity update(EmployeeEntity employeeEntity);
+    void update(EmployeeEntity employeeEntity);
 
     EmployeeEntity findEmployeeById(Long id);
 }
