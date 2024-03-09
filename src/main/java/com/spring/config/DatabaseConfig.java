@@ -30,7 +30,6 @@ class DatabaseConfig {
         return dataSource;
     }
 
-
     @Bean
     public Sql2o sql2o(DataSource dataSource) {
         return new Sql2o(dataSource);
