@@ -11,13 +11,13 @@ import javax.sql.DataSource;
 @Configuration
 class DatabaseConfig {
 
-    @Value(value = "${db.url}")
+    @Value("${db.url}")
     private String dbUrl;
-    @Value(value = "${db.username}")
+    @Value("${db.username}")
     private String dbUsername;
-    @Value(value = "${db.password}")
+    @Value("${db.password}")
     private String dbPassword;
-    @Value(value = "${db.driver-class-name}")
+    @Value("${db.driver-class-name}")
     private String dbDriverClassName;
 
     @Bean
