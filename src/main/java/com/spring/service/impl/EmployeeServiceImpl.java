@@ -5,7 +5,6 @@ import com.spring.model.dto.request.employee.EmployeePasswordChangeRequest;
 import com.spring.model.dto.response.EmployeeResponse;
 import com.spring.model.entity.EmployeeEntity;
 import com.spring.repository.EmployeeRepository;
-import com.spring.repository.impl.EmployeeRepositoryImpl;
 import com.spring.service.EmployeeService;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +15,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private final EmployeeRepository employeeRepository;
 
-    public EmployeeServiceImpl(EmployeeRepositoryImpl employeeRepository) {
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
     }
 
@@ -24,14 +23,14 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<EmployeeResponse> findAllEmployee() {
 
         List<EmployeeEntity> employeeEntities = employeeRepository.findallEmployee();
-        return  EmployeeResponse.employeeEntityToEmployeeResponse(employeeEntities);
+        return  EmployeeResponse.toResponse(employeeEntities);
     }
 
     @Override
     public EmployeeResponse createEmployee(EmployeeCreateRequest employeeCreateRequest) {
         EmployeeEntity employeeEntity = employeeCreateRequest.toEmployeeEntity();
         employeeRepository.save(employeeEntity);
-        return EmployeeResponse.employeeEntityToEmployeeResponse(employeeEntity);
+        return EmployeeResponse.toResponse(employeeEntity);
     }
 
     @Override
@@ -39,7 +38,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         EmployeeEntity employeeEntity = employeeRepository.findEmployeeById(id);
         employeeEntity.setPassword(employeePasswordChangeRequest.getNewPassword());
         employeeRepository.update(employeeEntity);
-        EmployeeResponse.employeeEntityToEmployeeResponse(employeeEntity);
+        EmployeeResponse.toResponse(employeeEntity);
     }
 
 }

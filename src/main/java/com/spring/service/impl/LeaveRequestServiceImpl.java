@@ -29,7 +29,7 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
     public List<LeaveRequestResponse> listLeaveRequests(Long id) {
 
         List<LeaveRequestEntity> leaveRequestEntityList = leaveRequestRepository.list(id);
-        return LeaveRequestResponse.leaveRequestEntityToResponse(leaveRequestEntityList);
+        return LeaveRequestResponse.toResponse(leaveRequestEntityList);
     }
 
     public void assignCurrentDate(LeaveRequestEntity leaveRequestEntity) {

@@ -2,7 +2,6 @@ package com.spring.model.dto.response;
 
 import com.spring.model.entity.EmployeeEntity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeResponse {
@@ -11,7 +10,7 @@ public class EmployeeResponse {
     private int age;
     private String gender;
 
-    public static EmployeeResponse employeeEntityToEmployeeResponse(EmployeeEntity employeeEntity){
+    public static EmployeeResponse toResponse(EmployeeEntity employeeEntity){
         EmployeeResponse employeeResponse = new EmployeeResponse();
         employeeResponse.setName(employeeEntity.getFirstName());
         employeeResponse.setSurname(employeeEntity.getLastName());
@@ -20,10 +19,10 @@ public class EmployeeResponse {
         return employeeResponse;
     }
 
-    public static List<EmployeeResponse> employeeEntityToEmployeeResponse(List<EmployeeEntity> employeeEntities){
-        List<EmployeeResponse> employeeResponses = new ArrayList<>();
+    public static List<EmployeeResponse> toResponse(List<EmployeeEntity> employeeEntities){
+        List<EmployeeResponse> employeeResponses = List.of();
         for (EmployeeEntity employeeEntity : employeeEntities) {
-            EmployeeResponse employeeResponse = EmployeeResponse.employeeEntityToEmployeeResponse(employeeEntity);
+            EmployeeResponse employeeResponse = EmployeeResponse.toResponse(employeeEntity);
             employeeResponses.add(employeeResponse);
         }
         return employeeResponses;

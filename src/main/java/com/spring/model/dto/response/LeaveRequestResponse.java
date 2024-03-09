@@ -5,7 +5,6 @@ import com.spring.model.enums.RequestType;
 import com.spring.model.enums.Status;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 public class LeaveRequestResponse {
@@ -16,7 +15,7 @@ public class LeaveRequestResponse {
     private LocalDate startDate;
     private LocalDate endDate;
 
-    public static LeaveRequestResponse leaveRequestEntityToResponse(LeaveRequestEntity leaveRequestEntity){
+    public static LeaveRequestResponse toResponse(LeaveRequestEntity leaveRequestEntity){
         return new LeaveRequestResponse(
                 leaveRequestEntity.getRequestType(),
                 leaveRequestEntity.getStatus(),
@@ -25,10 +24,10 @@ public class LeaveRequestResponse {
                 leaveRequestEntity.getEndDate());
     }
 
-    public static List<LeaveRequestResponse> leaveRequestEntityToResponse(List<LeaveRequestEntity> leaveRequestEntityList) {
-        List<LeaveRequestResponse> leaveRequestResponses = new ArrayList<>();
+    public static List<LeaveRequestResponse> toResponse(List<LeaveRequestEntity> leaveRequestEntityList) {
+        List<LeaveRequestResponse> leaveRequestResponses = List.of();
         for (LeaveRequestEntity leaveRequestEntity : leaveRequestEntityList) {
-            leaveRequestResponses.add(leaveRequestEntityToResponse(leaveRequestEntity));
+            leaveRequestResponses.add(toResponse(leaveRequestEntity));
         }
         return leaveRequestResponses;
     }
