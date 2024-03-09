@@ -4,17 +4,17 @@ import com.spring.model.entity.LeaveRequestEntity;
 import com.spring.model.enums.RequestType;
 import com.spring.model.enums.Status;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class LeaveRequestResponse {
 
     private RequestType requestType;
     private Status status;
-    private Date createDate;
-    private Date startDate;
-    private Date endDate;
+    private LocalDate createDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
 
     public static LeaveRequestResponse leaveRequestEntityToResponse(LeaveRequestEntity leaveRequestEntity){
         return new LeaveRequestResponse(
@@ -33,7 +33,7 @@ public class LeaveRequestResponse {
         return leaveRequestResponses;
     }
 
-    public LeaveRequestResponse(RequestType requestType, Status status, Date createDate, Date startDate, Date endDate) {
+    public LeaveRequestResponse(RequestType requestType, Status status, LocalDate createDate, LocalDate startDate, LocalDate endDate) {
         this.requestType = requestType;
         this.status = status;
         this.createDate = createDate;

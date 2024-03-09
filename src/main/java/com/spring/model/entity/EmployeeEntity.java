@@ -47,19 +47,13 @@ public class EmployeeEntity {
         return gender;
     }
 
-
     public int getAge() {
         return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
     }
 
     public String getUsername() {
         return username;
     }
-
 
     public String getPassword() {
         return password;
@@ -68,4 +62,5 @@ public class EmployeeEntity {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }
