@@ -13,7 +13,6 @@ public class EmployeeCreateRequest {
 
     private String username;
 
-    private String password;
 
     public  EmployeeEntity toEmployeeEntity(){
         return new EmployeeEntity(
@@ -21,8 +20,7 @@ public class EmployeeCreateRequest {
                 this.surname,
                 this.gender,
                 this.age,
-                this.username,
-                this.password);
+                this.username);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.spring.repository.impl.employee;
 
+import com.spring.util.PasswordEncoder;
 import com.spring.model.entity.EmployeeEntity;
 import com.spring.repository.EmployeeRepository;
 import com.spring.repository.mapping.EmployeeMapper;
@@ -37,7 +38,7 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
                 .addParameter(EmployeeMapper.GENDER.getField(), employeeEntity.getGender())
                 .addParameter(EmployeeMapper.AGE.getField(), employeeEntity.getAge())
                 .addParameter(EmployeeMapper.USERNAME.getField(), employeeEntity.getUsername())
-                .addParameter(EmployeeMapper.PASSWORD.getField(), employeeEntity.getPassword())
+                .addParameter(EmployeeMapper.PASSWORD.getField(), PasswordEncoder.hashPassword(employeeEntity.getPassword()))
                 .executeUpdate();
     }
 
@@ -52,7 +53,7 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
                  .addParameter(EmployeeMapper.GENDER.getField(), employeeEntity.getGender())
                  .addParameter(EmployeeMapper.AGE.getField(), employeeEntity.getAge())
                  .addParameter(EmployeeMapper.USERNAME.getField(), employeeEntity.getUsername())
-                 .addParameter(EmployeeMapper.PASSWORD.getField(), employeeEntity.getPassword())
+                 .addParameter(EmployeeMapper.PASSWORD.getField(), PasswordEncoder.hashPassword(employeeEntity.getPassword()))
                  .executeUpdate();
 
     }
