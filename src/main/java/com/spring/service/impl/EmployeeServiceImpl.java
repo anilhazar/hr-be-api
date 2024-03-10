@@ -6,6 +6,7 @@ import com.spring.model.dto.response.EmployeeResponse;
 import com.spring.model.entity.EmployeeEntity;
 import com.spring.repository.EmployeeRepository;
 import com.spring.service.EmployeeService;
+import com.spring.util.PasswordGenerator;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,6 +30,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public EmployeeResponse createEmployee(EmployeeCreateRequest employeeCreateRequest) {
         EmployeeEntity employeeEntity = employeeCreateRequest.toEmployeeEntity();
+        employeeEntity.setPassword(PasswordGenerator.generatePassword());
         employeeRepository.save(employeeEntity);
         return EmployeeResponse.toResponse(employeeEntity);
     }
