@@ -1,7 +1,10 @@
 package com.spring.util;
 
+import org.springframework.context.annotation.Configuration;
+
 import java.security.SecureRandom;
 
+@Configuration
 public class PasswordGenerator {
 
     private static final int PASSWORD_LENGTH = 8;

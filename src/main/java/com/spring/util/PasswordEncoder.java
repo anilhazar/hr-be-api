@@ -1,11 +1,13 @@
 package com.spring.util;
 
+import org.springframework.context.annotation.Configuration;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
+@Configuration
 public class PasswordEncoder {
 
-    private PasswordEncoder() {
+    public PasswordEncoder() {
     }
 
     /**

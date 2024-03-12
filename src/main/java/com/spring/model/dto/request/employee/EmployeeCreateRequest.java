@@ -3,9 +3,9 @@ package com.spring.model.dto.request.employee;
 import com.spring.model.entity.EmployeeEntity;
 
 public class EmployeeCreateRequest {
-    private String name;
+    private String firstName;
 
-    private String surname;
+    private String lastName;
 
     private String gender;
 
@@ -16,11 +16,31 @@ public class EmployeeCreateRequest {
 
     public  EmployeeEntity toEmployeeEntity(){
         return new EmployeeEntity(
-                this.name,
-                this.surname,
+                this.firstName,
+                this.lastName,
                 this.gender,
                 this.age,
-                this.username);
+                this.username
+        );
     }
 
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 }

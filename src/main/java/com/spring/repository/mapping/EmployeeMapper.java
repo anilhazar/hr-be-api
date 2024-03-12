@@ -9,7 +9,6 @@ public enum EmployeeMapper {
     LAST_NAME("LAST_NAME", "lastName"),
     GENDER("GENDER", "gender"),
     AGE("age", "age"),
-    BIRTHDAY("BIRTHDAY", "birthday"),
     USERNAME("USERNAME", "username"),
     PASSWORD("PASSWORD", "password");
 
