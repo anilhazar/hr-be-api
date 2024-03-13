@@ -1,18 +1,22 @@
 package com.spring.util;
 
-import org.springframework.context.annotation.Configuration;
-
 import java.security.SecureRandom;
 
-@Configuration
-public class PasswordGenerator {
+
+public final class PasswordGenerator {
 
     private static final int PASSWORD_LENGTH = 8;
     private static final int ASCII_MIN = 48;
     private static final int ASCII_MAX = 122;
 
-    public static String generatePassword() {
-        SecureRandom random = new SecureRandom();
+    private static final SecureRandom random = new SecureRandom();
+
+    private PasswordGenerator() {
+        throw new IllegalArgumentException("Utility Class");
+    }
+
+    public static String generate() {
+
         StringBuilder password = new StringBuilder();
 
         for (int i = 0; i < PASSWORD_LENGTH; i++) {
