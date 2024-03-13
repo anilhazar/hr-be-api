@@ -5,7 +5,7 @@ import com.spring.model.entity.EmployeeEntity;
 import java.util.List;
 
 public interface EmployeeRepository {
-    List<EmployeeEntity> findallEmployee();
+    List<EmployeeEntity> findAllEmployee();
 
     void save(EmployeeEntity employeeEntity);
 

@@ -23,6 +23,7 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
     public void createLeaveRequest(LeaveRequestCreateRequest leaveRequestCreateRequest) {
         LeaveRequestEntity leaveRequestEntity = leaveRequestCreateRequest.toLeaveRequestEntity();
         assignCurrentDate(leaveRequestEntity);
+        leaveRequestRepository.save(leaveRequestEntity);
     }
 
     @Override

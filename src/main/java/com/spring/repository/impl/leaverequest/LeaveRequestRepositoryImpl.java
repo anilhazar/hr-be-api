@@ -20,35 +20,47 @@ class LeaveRequestRepositoryImpl implements LeaveRequestRepository {
 
     @Override
     public void save(LeaveRequestEntity leaveRequestEntity) {
-        Connection connection = sql2o.open();
-        Query query = connection.createQuery(LeaveRequestRepositoryConstants.SAVE);
-        query
-                .addParameter(LeaveRequestMapper.REQUEST_TYPE.getField(), leaveRequestEntity.getRequestType())
-                .addParameter(LeaveRequestMapper.STATUS.getField(), leaveRequestEntity.getStatus())
-                .addParameter(LeaveRequestMapper.CREATE_DATE.getField(), leaveRequestEntity.getCreateDate())
-                .addParameter(LeaveRequestMapper.START_DATE.getField(), leaveRequestEntity.getStartDate())
-                .addParameter(LeaveRequestMapper.END_DATE.getField(), leaveRequestEntity.getEndDate())
-                .addParameter(LeaveRequestMapper.EMPLOYEE_ID.getField(), leaveRequestEntity.getEmployeeId())
-                .executeUpdate();
 
+        try (Connection connection = sql2o.open()) {
+            try (Query query = connection.createQuery(LeaveRequestRepositoryConstants.SAVE)) {
+
+                query
+                        .addParameter(LeaveRequestMapper.REQUEST_TYPE.getField(), leaveRequestEntity.getRequestType())
+                        .addParameter(LeaveRequestMapper.STATUS.getField(), leaveRequestEntity.getStatus())
+                        .addParameter(LeaveRequestMapper.CREATE_DATE.getField(), leaveRequestEntity.getCreateDate())
+                        .addParameter(LeaveRequestMapper.START_DATE.getField(), leaveRequestEntity.getStartDate())
+                        .addParameter(LeaveRequestMapper.END_DATE.getField(), leaveRequestEntity.getEndDate())
+                        .addParameter(LeaveRequestMapper.EMPLOYEE_ID.getField(), leaveRequestEntity.getEmployeeId())
+                        .executeUpdate();
+            }
+        }
     }
 
+    @Override
     public LeaveRequestEntity findLeaveRequestsById(Long id){
-        Connection connection = sql2o.open();
-        Query query = connection.createQuery(LeaveRequestRepositoryConstants.FIND_BY_ID);
-        query
-                .addParameter(LeaveRequestMapper.ID.getField(), id)
-                .setColumnMappings(LeaveRequestMapper.getColumnFieldMMappings());
-        return query.executeAndFetchFirst(LeaveRequestEntity.class);
+
+        try (Connection connection = sql2o.open()) {
+            try (Query query = connection.createQuery(LeaveRequestRepositoryConstants.FIND_BY_ID)) {
+
+                query
+                        .addParameter(LeaveRequestMapper.ID.getField(), id)
+                        .setColumnMappings(LeaveRequestMapper.getColumnFieldMMappings());
+                return query.executeAndFetchFirst(LeaveRequestEntity.class);
+            }
+        }
     }
 
     @Override
     public List<LeaveRequestEntity> list(Long id) {
-        Connection connection = sql2o.open();
-        Query query = connection.createQuery(LeaveRequestRepositoryConstants.LIST);
-        query
-                .addParameter(LeaveRequestMapper.EMPLOYEE_ID.getField(), id)
-                .setColumnMappings(LeaveRequestMapper.getColumnFieldMMappings());
-        return  query.executeAndFetch(LeaveRequestEntity.class);
+
+        try (Connection connection = sql2o.open()) {
+            try (Query query = connection.createQuery(LeaveRequestRepositoryConstants.LIST)) {
+
+                query
+                        .addParameter(LeaveRequestMapper.EMPLOYEE_ID.getField(), id)
+                        .setColumnMappings(LeaveRequestMapper.getColumnFieldMMappings());
+                return query.executeAndFetch(LeaveRequestEntity.class);
+            }
+        }
     }
 }

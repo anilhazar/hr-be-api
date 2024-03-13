@@ -8,8 +8,6 @@ import java.time.LocalDate;
 
 class LocalDateConverter implements Converter<LocalDate> {
 
-    public LocalDateConverter() {
-    }
 
     @Override
     public LocalDate convert(Object dateObject) throws ConverterException {
