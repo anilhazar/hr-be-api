@@ -11,6 +11,8 @@ public class EmployeeCreateRequest {
 
     private int age;
 
+    private String email;
+
     private String username;
 
 
@@ -20,6 +22,7 @@ public class EmployeeCreateRequest {
                 this.lastName,
                 this.gender,
                 this.age,
+                this.email,
                 this.username
         );
     }
@@ -38,6 +41,10 @@ public class EmployeeCreateRequest {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public void setUsername(String username) {

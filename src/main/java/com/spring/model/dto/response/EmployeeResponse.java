@@ -9,6 +9,7 @@ public class EmployeeResponse {
     private String surname;
     private int age;
     private String gender;
+    private String email;
 
     public static EmployeeResponse toResponse(EmployeeEntity employeeEntity){
         EmployeeResponse employeeResponse = new EmployeeResponse();
@@ -16,6 +17,7 @@ public class EmployeeResponse {
         employeeResponse.setSurname(employeeEntity.getLastName());
         employeeResponse.setAge(employeeEntity.getAge());
         employeeResponse.setGender(employeeEntity.getGender());
+        employeeResponse.setEmail(employeeEntity.getEmail());
         return employeeResponse;
     }
 
@@ -44,5 +46,9 @@ public class EmployeeResponse {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

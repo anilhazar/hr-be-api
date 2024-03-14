@@ -31,6 +31,7 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
     public void save(EmployeeEntity employeeEntity) {
         try (Connection connection = sql2o.open()) {
             try (Query query = connection.createQuery(EmployeeRepositoryConstants.SAVE)) {
+
                 query
                         .addParameter(EmployeeMapper.FIRST_NAME.getField(), employeeEntity.getFirstName())
                         .addParameter(EmployeeMapper.LAST_NAME.getField(), employeeEntity.getLastName())

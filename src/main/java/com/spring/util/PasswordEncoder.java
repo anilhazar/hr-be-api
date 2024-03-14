@@ -16,7 +16,7 @@ public final class PasswordEncoder {
      * @return the hexadecimal hashed password using the SHA-256 algorithm
      */
 
-    public static String hashPassword(String password) {
+    public static String hash(String password) {
 
         byte[] passwordHash = messageDigest().digest(password.getBytes());
         StringBuilder hashedPasswordBuilder = new StringBuilder();
