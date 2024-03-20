@@ -4,12 +4,13 @@ import com.spring.model.entity.LeaveRequestEntity;
 import com.spring.model.enums.RequestType;
 import com.spring.model.enums.Status;
 
-import java.util.Date;
+import java.time.LocalDate;
+
 
 public class LeaveRequestCreateRequest {
     private RequestType requestType;
-    private Date startDate;
-    private Date endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private Long employeeId;
 
     public LeaveRequestEntity toLeaveRequestEntity(){

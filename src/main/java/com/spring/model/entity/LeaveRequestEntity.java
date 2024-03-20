@@ -3,18 +3,18 @@ package com.spring.model.entity;
 import com.spring.model.enums.RequestType;
 import com.spring.model.enums.Status;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class LeaveRequestEntity {
     private Long id;
     private RequestType requestType;
     private Status status;
-    private Date createDate;
-    private Date startDate;
-    private Date endDate;
+    private LocalDate createDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private Long employeeId;
 
-    public LeaveRequestEntity(RequestType requestType, Status status, Date startDate, Date endDate, Long employeeId) {
+    public LeaveRequestEntity(RequestType requestType, Status status, LocalDate startDate, LocalDate endDate, Long employeeId) {
         this.requestType = requestType;
         this.status=status;
         this.startDate = startDate;
@@ -38,24 +38,20 @@ public class LeaveRequestEntity {
         return status;
     }
 
-    public Date getCreateDate() {
+    public LocalDate getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(LocalDate createDate) {
         this.createDate = createDate;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
     }
 
     public Long getEmployeeId() {
@@ -74,4 +70,5 @@ public class LeaveRequestEntity {
                 ", employeeId=" + employeeId +
                 '}';
     }
+
 }

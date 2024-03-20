@@ -28,13 +28,15 @@ public class EmployeeController {
     }
 
     @PostMapping("/employee")
-    public ResponseEntity<Void> createEmployee(@RequestBody final EmployeeCreateRequest employeeCreateRequest) {
+    public ResponseEntity<Void> createEmployee(
+            @RequestBody final EmployeeCreateRequest employeeCreateRequest) {
         employeeService.createEmployee(employeeCreateRequest);
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/employee/{id}/password")
-    public ResponseEntity<Void> changePassword(@PathVariable final Long id, @RequestBody final EmployeePasswordChangeRequest employeePasswordChangeRequest) {
+    public ResponseEntity<Void> changePassword(@PathVariable final Long id,
+                                               @RequestBody final EmployeePasswordChangeRequest employeePasswordChangeRequest) {
         employeeService.changeEmployeePassword(id, employeePasswordChangeRequest);
         return ResponseEntity.ok().build();
     }

@@ -9,7 +9,7 @@ import java.util.List;
 public interface EmployeeService  {
     List<EmployeeResponse> findAllEmployee();
 
-    EmployeeResponse createEmployee(EmployeeCreateRequest employeeCreateRequest);
+    void createEmployee(EmployeeCreateRequest employeeCreateRequest);
 
     void changeEmployeePassword(Long id, EmployeePasswordChangeRequest employeePasswordChangeRequest);
 

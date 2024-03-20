@@ -7,7 +7,7 @@ import com.spring.repository.LeaveRequestRepository;
 import com.spring.service.LeaveRequestService;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -23,16 +23,18 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
     public void createLeaveRequest(LeaveRequestCreateRequest leaveRequestCreateRequest) {
         LeaveRequestEntity leaveRequestEntity = leaveRequestCreateRequest.toLeaveRequestEntity();
         assignCurrentDate(leaveRequestEntity);
+        leaveRequestRepository.save(leaveRequestEntity);
     }
 
     @Override
     public List<LeaveRequestResponse> listLeaveRequests(Long id) {
 
         List<LeaveRequestEntity> leaveRequestEntityList = leaveRequestRepository.list(id);
-        return LeaveRequestResponse.leaveRequestEntityToResponse(leaveRequestEntityList);
+        return LeaveRequestResponse.toResponse(leaveRequestEntityList);
     }
 
     public void assignCurrentDate(LeaveRequestEntity leaveRequestEntity) {
-        leaveRequestEntity.setCreateDate(new Date());
+        leaveRequestEntity.setCreateDate(LocalDate.now());
     }
+
 }

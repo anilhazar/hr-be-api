@@ -1,6 +1,10 @@
 package com.spring.repository.impl.leaverequest;
 
-class LeaveRequestRepositoryConstants {
+final class LeaveRequestRepositoryConstants {
+
+    private LeaveRequestRepositoryConstants() {
+        throw new IllegalStateException("Utility class");
+    }
 
     static final String SAVE = "INSERT INTO leave_request "
             + "(request_type, status, create_date, start_date, end_date, employee_id)"
@@ -13,7 +17,7 @@ class LeaveRequestRepositoryConstants {
             + "FROM leave_request "
             + "WHERE employee_id = :employeeId";
 
-    private LeaveRequestRepositoryConstants(){throw new IllegalStateException("Utility class");}
+
 }
 
 

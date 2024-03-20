@@ -2,7 +2,6 @@ package com.spring.model.dto.response;
 
 import com.spring.model.entity.EmployeeEntity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeResponse {
@@ -10,20 +9,22 @@ public class EmployeeResponse {
     private String surname;
     private int age;
     private String gender;
+    private String email;
 
-    public static EmployeeResponse employeeEntityToEmployeeResponse(EmployeeEntity employeeEntity){
+    public static EmployeeResponse toResponse(EmployeeEntity employeeEntity){
         EmployeeResponse employeeResponse = new EmployeeResponse();
         employeeResponse.setName(employeeEntity.getFirstName());
         employeeResponse.setSurname(employeeEntity.getLastName());
         employeeResponse.setAge(employeeEntity.getAge());
         employeeResponse.setGender(employeeEntity.getGender());
+        employeeResponse.setEmail(employeeEntity.getEmail());
         return employeeResponse;
     }
 
-    public static List<EmployeeResponse> employeeEntityToEmployeeResponse(List<EmployeeEntity> employeeEntities){
-        List<EmployeeResponse> employeeResponses = new ArrayList<>();
+    public static List<EmployeeResponse> toResponse(List<EmployeeEntity> employeeEntities){
+        List<EmployeeResponse> employeeResponses = List.of();
         for (EmployeeEntity employeeEntity : employeeEntities) {
-            EmployeeResponse employeeResponse = EmployeeResponse.employeeEntityToEmployeeResponse(employeeEntity);
+            EmployeeResponse employeeResponse = EmployeeResponse.toResponse(employeeEntity);
             employeeResponses.add(employeeResponse);
         }
         return employeeResponses;
@@ -45,5 +46,9 @@ public class EmployeeResponse {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
