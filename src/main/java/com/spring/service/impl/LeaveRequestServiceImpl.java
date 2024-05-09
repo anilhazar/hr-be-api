@@ -1,5 +1,6 @@
 package com.spring.service.impl;
 
+import com.spring.model.dto.converter.LeaveRequestConverter;
 import com.spring.model.dto.request.leaverequest.LeaveRequestCreateRequest;
 import com.spring.model.dto.response.LeaveRequestResponse;
 import com.spring.model.entity.LeaveRequestEntity;
@@ -11,7 +12,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Service
-public class LeaveRequestServiceImpl implements LeaveRequestService {
+class LeaveRequestServiceImpl implements LeaveRequestService {
 
     private final LeaveRequestRepository leaveRequestRepository;
 
@@ -21,20 +22,21 @@ public class LeaveRequestServiceImpl implements LeaveRequestService {
 
     @Override
     public void createLeaveRequest(LeaveRequestCreateRequest leaveRequestCreateRequest) {
-        LeaveRequestEntity leaveRequestEntity = leaveRequestCreateRequest.toLeaveRequestEntity();
+        LeaveRequestEntity leaveRequestEntity = LeaveRequestConverter.toEntity(leaveRequestCreateRequest);
         assignCurrentDate(leaveRequestEntity);
         leaveRequestRepository.save(leaveRequestEntity);
+    }
+
+    private void assignCurrentDate(LeaveRequestEntity leaveRequestEntity) {
+        leaveRequestEntity.setCreateDate(LocalDate.now());
     }
 
     @Override
     public List<LeaveRequestResponse> listLeaveRequests(Long id) {
 
         List<LeaveRequestEntity> leaveRequestEntityList = leaveRequestRepository.list(id);
-        return LeaveRequestResponse.toResponse(leaveRequestEntityList);
+        return LeaveRequestConverter.toResponse(leaveRequestEntityList);
     }
 
-    public void assignCurrentDate(LeaveRequestEntity leaveRequestEntity) {
-        leaveRequestEntity.setCreateDate(LocalDate.now());
-    }
 
 }

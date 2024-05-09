@@ -34,10 +34,10 @@ public class EmployeeController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/employee/{id}/password")
-    public ResponseEntity<Void> changePassword(@PathVariable final Long id,
+    @PutMapping("/employee/{employee_Id}/password")
+    public ResponseEntity<Void> changePassword(@PathVariable final Long employee_Id,
                                                @RequestBody final EmployeePasswordChangeRequest employeePasswordChangeRequest) {
-        employeeService.changeEmployeePassword(id, employeePasswordChangeRequest);
+        employeeService.changeEmployeePassword(employee_Id, employeePasswordChangeRequest);
         return ResponseEntity.ok().build();
     }
 

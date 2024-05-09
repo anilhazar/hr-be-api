@@ -18,13 +18,12 @@ public class EmployeeEntity {
 
 
     public EmployeeEntity(String firstName, String lastName, String gender,
-                          int age, String email, String username) {
+                          int age, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
         this.age = age;
         this.email = email;
-        this.username = username;
     }
 
     public Long getId() {

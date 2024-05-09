@@ -1,5 +1,6 @@
 package com.spring.service.impl;
 
+import com.spring.model.dto.converter.EmployeeConverter;
 import com.spring.model.dto.request.employee.EmployeeCreateRequest;
 import com.spring.model.dto.request.employee.EmployeePasswordChangeRequest;
 import com.spring.model.dto.response.EmployeeResponse;
@@ -12,9 +13,11 @@ import com.spring.util.PasswordGenerator;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @Service
-public class EmployeeServiceImpl implements EmployeeService {
+class EmployeeServiceImpl implements EmployeeService {
 
     private final EmployeeRepository employeeRepository;
 
@@ -29,22 +32,30 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<EmployeeResponse> findAllEmployee() {
 
         List<EmployeeEntity> employeeEntities = employeeRepository.findAllEmployee();
-        return  EmployeeResponse.toResponse(employeeEntities);
+        return EmployeeConverter.toResponse(employeeEntities);
     }
 
     @Override
     public void createEmployee(EmployeeCreateRequest employeeCreateRequest) {
-        EmployeeEntity employeeEntity = employeeCreateRequest.toEmployeeEntity();
+        EmployeeEntity employeeEntity = EmployeeConverter.toEntity(employeeCreateRequest);
+
 
         String generatedPassword = PasswordGenerator.generate();
         String encodedPassword = PasswordEncoder.hash(generatedPassword);
         employeeEntity.setPassword(encodedPassword);
+        ExecutorService executor = Executors.newFixedThreadPool(2);
+        executor.submit(() -> {
+            employeeRepository.save(employeeEntity);
+            employeeEntity.setUsername(generateUsername(employeeEntity.getId()));
+            employeeRepository.update(employeeEntity);
+        });
 
-        employeeEntity.setUsername(generateUsername(employeeEntity.getId()));
+        executor.submit(() -> employeeEmailService.sendUsernameAndPassword(employeeEntity));
+        executor.shutdown();
+    }
 
-        employeeRepository.save(employeeEntity);
-        employeeEmailService.sendUsernameAndPassword(employeeEntity);
-
+    private String generateUsername(Long id) {
+        return "username" + (id + 17);
     }
 
     @Override
@@ -59,8 +70,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     }
 
-    private String generateUsername(Long id) {
-        return "username " + (id + 31);
-    }
 
 }
+

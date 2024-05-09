@@ -7,7 +7,9 @@ import org.springframework.stereotype.Repository;
 import org.sql2o.Connection;
 import org.sql2o.Query;
 import org.sql2o.Sql2o;
+import org.sql2o.Sql2oException;
 
+import java.util.Collections;
 import java.util.List;
 
 @Repository
@@ -21,9 +23,8 @@ class LeaveRequestRepositoryImpl implements LeaveRequestRepository {
     @Override
     public void save(LeaveRequestEntity leaveRequestEntity) {
 
-        try (Connection connection = sql2o.open()) {
-            try (Query query = connection.createQuery(LeaveRequestRepositoryConstants.SAVE)) {
-
+        try (Connection connection = sql2o.open();
+             Query query = connection.createQuery(LeaveRequestRepositoryConstants.SAVE)) {
                 query
                         .addParameter(LeaveRequestMapper.REQUEST_TYPE.getField(), leaveRequestEntity.getRequestType())
                         .addParameter(LeaveRequestMapper.STATUS.getField(), leaveRequestEntity.getStatus())
@@ -32,35 +33,44 @@ class LeaveRequestRepositoryImpl implements LeaveRequestRepository {
                         .addParameter(LeaveRequestMapper.END_DATE.getField(), leaveRequestEntity.getEndDate())
                         .addParameter(LeaveRequestMapper.EMPLOYEE_ID.getField(), leaveRequestEntity.getEmployeeId())
                         .executeUpdate();
-            }
+
+        } catch (Sql2oException e) {
+            e.printStackTrace();
         }
     }
 
     @Override
-    public LeaveRequestEntity findLeaveRequestsById(Long id){
+    public LeaveRequestEntity findLeaveRequestsById(Long id) {
+        try (Connection connection = sql2o.open();
+             Query query = connection.createQuery(LeaveRequestRepositoryConstants.FIND_BY_ID)) {
 
-        try (Connection connection = sql2o.open()) {
-            try (Query query = connection.createQuery(LeaveRequestRepositoryConstants.FIND_BY_ID)) {
+            query.addParameter(LeaveRequestMapper.ID.getField(), id)
+                    .setColumnMappings(LeaveRequestMapper.getColumnFieldMMappings());
+            return query.executeAndFetchFirst(LeaveRequestEntity.class);
 
-                query
-                        .addParameter(LeaveRequestMapper.ID.getField(), id)
-                        .setColumnMappings(LeaveRequestMapper.getColumnFieldMMappings());
-                return query.executeAndFetchFirst(LeaveRequestEntity.class);
-            }
+        } catch (Sql2oException e) {
+
+            e.printStackTrace();
+            return null;
+
         }
+
     }
 
+
     @Override
-    public List<LeaveRequestEntity> list(Long id) {
+    public List<LeaveRequestEntity> list(Long employeeId) {
 
-        try (Connection connection = sql2o.open()) {
-            try (Query query = connection.createQuery(LeaveRequestRepositoryConstants.LIST)) {
-
+        try (Connection connection = sql2o.open();
+             Query query = connection.createQuery(LeaveRequestRepositoryConstants.LIST)) {
                 query
-                        .addParameter(LeaveRequestMapper.EMPLOYEE_ID.getField(), id)
+                        .addParameter(LeaveRequestMapper.EMPLOYEE_ID.getField(), employeeId)
                         .setColumnMappings(LeaveRequestMapper.getColumnFieldMMappings());
                 return query.executeAndFetch(LeaveRequestEntity.class);
-            }
+
+        } catch (Sql2oException e) {
+            e.printStackTrace();
+            return Collections.emptyList();
         }
     }
 }

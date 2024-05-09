@@ -1,16 +1,15 @@
 db:
   driver-class-name: "com.mysql.cj.jdbc.Driver"
   url: "jdbc:mysql://localhost:3306/hr_be_api"
-  username: "root"
-  password: "Selamlar123+"
+  username:
+  password:
 
 spring:
   mail:
-    default-encoding: UTF-8
-    host: "smtp.gmail.com"
-    username: ${MAIL_USERNAME}
-    password: ${MAIL_PASSWORD}
+    host: smtp.live.com
     port: 587
+    username:
+    password:
     properties:
       mail:
         smtp:

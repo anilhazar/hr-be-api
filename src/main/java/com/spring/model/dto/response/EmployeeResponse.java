@@ -1,42 +1,27 @@
 package com.spring.model.dto.response;
 
-import com.spring.model.entity.EmployeeEntity;
-
-import java.util.List;
-
 public class EmployeeResponse {
-    private String name;
-    private String surname;
+    private String firstName;
+    private String lastName;
     private int age;
     private String gender;
     private String email;
 
-    public static EmployeeResponse toResponse(EmployeeEntity employeeEntity){
-        EmployeeResponse employeeResponse = new EmployeeResponse();
-        employeeResponse.setName(employeeEntity.getFirstName());
-        employeeResponse.setSurname(employeeEntity.getLastName());
-        employeeResponse.setAge(employeeEntity.getAge());
-        employeeResponse.setGender(employeeEntity.getGender());
-        employeeResponse.setEmail(employeeEntity.getEmail());
-        return employeeResponse;
+    public EmployeeResponse(String firstName, String lastName, int age, String gender, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this.gender = gender;
+        this.email = email;
     }
 
-    public static List<EmployeeResponse> toResponse(List<EmployeeEntity> employeeEntities){
-        List<EmployeeResponse> employeeResponses = List.of();
-        for (EmployeeEntity employeeEntity : employeeEntities) {
-            EmployeeResponse employeeResponse = EmployeeResponse.toResponse(employeeEntity);
-            employeeResponses.add(employeeResponse);
-        }
-        return employeeResponses;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
 
