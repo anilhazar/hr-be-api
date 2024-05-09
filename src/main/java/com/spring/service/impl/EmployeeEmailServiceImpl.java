@@ -6,7 +6,7 @@ import com.spring.service.EmployeeEmailService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class EmployeeEmailServiceImpl implements EmployeeEmailService {
+class EmployeeEmailServiceImpl implements EmployeeEmailService {
 
     private final EmailService emailService;
 
