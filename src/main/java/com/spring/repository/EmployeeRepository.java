@@ -12,4 +12,6 @@ public interface EmployeeRepository {
     void update(EmployeeEntity employeeEntity);
 
     EmployeeEntity findEmployeeById(Long id);
+
+    EmployeeEntity findEmployeeByUsername(String username);
 }

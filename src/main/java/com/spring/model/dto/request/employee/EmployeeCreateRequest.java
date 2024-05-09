@@ -1,31 +1,24 @@
 package com.spring.model.dto.request.employee;
 
-import com.spring.model.entity.EmployeeEntity;
+import jakarta.validation.constraints.*;
 
 public class EmployeeCreateRequest {
+    @NotBlank
+    @Size(min = 2, max = 45)
     private String firstName;
-
+    @NotBlank
+    @Size(min = 2, max = 45)
     private String lastName;
-
+    @NotBlank
+    @Size(min = 2, max = 45)
     private String gender;
-
+    @NotNull
+    @Positive
     private int age;
-
+    @NotBlank
+    @Email
     private String email;
 
-    private String username;
-
-
-    public  EmployeeEntity toEmployeeEntity(){
-        return new EmployeeEntity(
-                this.firstName,
-                this.lastName,
-                this.gender,
-                this.age,
-                this.email,
-                this.username
-        );
-    }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
@@ -47,7 +40,23 @@ public class EmployeeCreateRequest {
         this.email = email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public String getEmail() {
+        return email;
     }
 }

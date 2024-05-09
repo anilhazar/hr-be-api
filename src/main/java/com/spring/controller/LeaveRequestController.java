@@ -23,10 +23,10 @@ public class LeaveRequestController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/leave-request/{id}/dates/")
-    public ResponseEntity<List<LeaveRequestResponse>> getLeaveRequests(@PathVariable Long id) {
+    @GetMapping("employee/leave-requests/{employeeId}")
+    public ResponseEntity<List<LeaveRequestResponse>> getLeaveRequests(@PathVariable Long employeeId) {
 
-        List<LeaveRequestResponse> leaveRequestResponseList = leaveRequestService.listLeaveRequests(id);
+        List<LeaveRequestResponse> leaveRequestResponseList = leaveRequestService.listLeaveRequests(employeeId);
         return ResponseEntity.ok(leaveRequestResponseList);
     }
 

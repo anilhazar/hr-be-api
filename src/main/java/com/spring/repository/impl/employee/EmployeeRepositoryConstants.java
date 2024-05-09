@@ -18,5 +18,8 @@ final class EmployeeRepositoryConstants {
             + "SET first_name = :firstName, last_name = :lastName, age = :age, gender = :gender, email = :email, username = :username, password = :password "
             + "WHERE id = :id";
 
+    static final String FIND_BY_USERNAME = "SELECT id, first_name, last_name, age, gender, username, password " +
+            "FROM employee " +
+            "WHERE username = :username";
 
 }
