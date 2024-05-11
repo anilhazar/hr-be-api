@@ -20,4 +20,24 @@ public class LeaveRequestResponse {
         this.startDate = startDate;
         this.endDate = endDate;
     }
+
+    public RequestType getRequestType() {
+        return requestType;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public LocalDate getCreateDate() {
+        return createDate;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
 }
