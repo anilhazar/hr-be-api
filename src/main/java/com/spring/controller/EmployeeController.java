@@ -1,7 +1,7 @@
 package com.spring.controller;
 
-import com.spring.model.dto.request.employee.EmployeeCreateRequest;
-import com.spring.model.dto.request.employee.EmployeePasswordChangeRequest;
+import com.spring.model.dto.request.EmployeeCreateRequest;
+import com.spring.model.dto.request.EmployeePasswordChangeRequest;
 import com.spring.model.dto.response.EmployeeResponse;
 import com.spring.service.EmployeeService;
 import org.springframework.http.ResponseEntity;
@@ -34,10 +34,10 @@ public class EmployeeController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/employee/{employee_Id}/password")
-    public ResponseEntity<Void> changePassword(@PathVariable final Long employee_Id,
+    @PutMapping("/employee/{id}/password")
+    public ResponseEntity<Void> changePassword(@PathVariable final Long id,
                                                @RequestBody final EmployeePasswordChangeRequest employeePasswordChangeRequest) {
-        employeeService.changeEmployeePassword(employee_Id, employeePasswordChangeRequest);
+        employeeService.changeEmployeePassword(id, employeePasswordChangeRequest);
         return ResponseEntity.ok().build();
     }
 

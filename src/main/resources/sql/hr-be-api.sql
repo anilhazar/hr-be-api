@@ -1,3 +1,5 @@
+CREATE DATABASE hr_be_api;
+
 CREATE TABLE employee
 (
     id         BIGINT AUTO_INCREMENT PRIMARY KEY NOT NULL,
@@ -6,8 +8,8 @@ CREATE TABLE employee
     gender     VARCHAR(24)                       NOT NULL,
     age        INT                               NOT NULL,
     email      VARCHAR(48)                       NOT NULL,
-    username   VARCHAR(24),
-    password   VARCHAR(240)
+    username VARCHAR(24)  NOT NULL,
+    password VARCHAR(240) NOT NULL
 );
 
 CREATE TABLE leave_request
@@ -19,5 +21,5 @@ CREATE TABLE leave_request
     create_date  DATE                                            NOT NULL,
     start_date   DATE                                            NOT NULL,
     end_date     DATE                                            NOT NULL,
-    FOREIGN KEY (employee_id) REFERENCES employee (id)
+    CONSTRAINT fk__employee_id__leave_request FOREIGN KEY (employee_id) REFERENCES employee (id)
 );
