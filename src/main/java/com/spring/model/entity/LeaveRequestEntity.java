@@ -7,12 +7,18 @@ import java.time.LocalDate;
 
 public class LeaveRequestEntity {
     private Long id;
-    private RequestType requestType;
-    private Status status;
+
+    private final RequestType requestType;
+
+    private final Status status;
+
     private LocalDate createDate;
-    private LocalDate startDate;
-    private LocalDate endDate;
-    private Long employeeId;
+
+    private final LocalDate startDate;
+
+    private final LocalDate endDate;
+
+    private final Long employeeId;
 
     public LeaveRequestEntity(RequestType requestType, Status status, LocalDate startDate, LocalDate endDate, Long employeeId) {
         this.requestType = requestType;
@@ -58,17 +64,5 @@ public class LeaveRequestEntity {
         return employeeId;
     }
 
-    @Override
-    public String toString() {
-        return "LeaveRequestEntity{" +
-                "id=" + id +
-                ", requestType=" + requestType +
-                ", status=" + status +
-                ", createDate=" + createDate +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", employeeId=" + employeeId +
-                '}';
-    }
 
 }
