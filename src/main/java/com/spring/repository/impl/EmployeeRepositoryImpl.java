@@ -1,4 +1,4 @@
-package com.spring.repository.impl.employee;
+package com.spring.repository.impl;
 
 import com.spring.model.entity.EmployeeEntity;
 import com.spring.repository.EmployeeRepository;
@@ -9,7 +9,7 @@ import org.sql2o.Query;
 import org.sql2o.Sql2o;
 import org.sql2o.Sql2oException;
 
-import java.math.BigInteger;
+import java.util.Collections;
 import java.util.List;
 
 @Repository
@@ -20,37 +20,27 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
         this.sql2o = sql2o;
     }
 
-    @Override
-    public List<EmployeeEntity> findAllEmployee() {
 
-        try (Connection connection = sql2o.open()) {
-            try (Query query = connection.createQuery(EmployeeRepositoryConstants.FIND_ALL)) {
-                return query.executeAndFetch(EmployeeEntity.class);
-            }
-        }
-    }
     @Override
     public void save(EmployeeEntity employeeEntity) {
         try (Connection connection = sql2o.open();
-             Query query = connection.createQuery(EmployeeRepositoryConstants.SAVE, true)
-                     .addParameter(EmployeeMapper.FIRST_NAME.getField(), employeeEntity.getFirstName())
-                     .addParameter(EmployeeMapper.LAST_NAME.getField(), employeeEntity.getLastName())
-                     .addParameter(EmployeeMapper.GENDER.getField(), employeeEntity.getGender())
-                     .addParameter(EmployeeMapper.AGE.getField(), employeeEntity.getAge())
-                     .addParameter(EmployeeMapper.EMAIL.getField(), employeeEntity.getEmail())
-                     .addParameter(EmployeeMapper.USERNAME.getField(), employeeEntity.getUsername())
-                     .addParameter(EmployeeMapper.PASSWORD.getField(), employeeEntity.getPassword())) {
+             Query query = connection.createQuery(EmployeeRepositoryConstants.SAVE, true)) {
+            query
 
-            int affectedRows = query.executeUpdate().getResult();
-            if (affectedRows > 0) {
-                Long id = ((BigInteger) connection.createQuery("SELECT LAST_INSERT_ID()").executeScalar()).longValueExact();
+                    .addParameter(EmployeeMapper.FIRST_NAME.getField(), employeeEntity.getFirstName())
+                    .addParameter(EmployeeMapper.LAST_NAME.getField(), employeeEntity.getLastName())
+                    .addParameter(EmployeeMapper.GENDER.getField(), employeeEntity.getGender())
+                    .addParameter(EmployeeMapper.AGE.getField(), employeeEntity.getAge())
+                    .addParameter(EmployeeMapper.EMAIL.getField(), employeeEntity.getEmail())
+                    .addParameter(EmployeeMapper.USERNAME.getField(), employeeEntity.getUsername())
+                    .addParameter(EmployeeMapper.PASSWORD.getField(), employeeEntity.getPassword())
+                    .executeUpdate();
 
-                employeeEntity.setId(id);
-            }
         } catch (Sql2oException e) {
             e.printStackTrace();
         }
     }
+
 
 
     @Override
@@ -73,14 +63,26 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
         }
     }
 
+    @Override
+    public List<EmployeeEntity> findAllEmployee() {
+
+        try (Connection connection = sql2o.open();
+             Query query = connection.createQuery(EmployeeRepositoryConstants.FIND_ALL)) {
+
+            return query.executeAndFetch(EmployeeEntity.class);
+        } catch (Sql2oException sql2oException) {
+            sql2oException.printStackTrace();
+            return Collections.emptyList();
+        }
+    }
 
     @Override
-    public EmployeeEntity findEmployeeById(Long employeeId) {
+    public EmployeeEntity findEmployeeById(Long id) {
 
         try (Connection connection = sql2o.open();
              Query query = connection.createQuery(EmployeeRepositoryConstants.FIND_BY_ID)) {
             query
-                    .addParameter(EmployeeMapper.ID.getField(), employeeId)
+                    .addParameter(EmployeeMapper.ID.getField(), id)
                     .setColumnMappings(EmployeeMapper.getColumnFieldMappings());
             return query.executeAndFetchFirst(EmployeeEntity.class);
         } catch (Sql2oException e) {

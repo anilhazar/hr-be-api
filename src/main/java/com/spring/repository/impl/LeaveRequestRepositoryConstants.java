@@ -1,4 +1,4 @@
-package com.spring.repository.impl.leaverequest;
+package com.spring.repository.impl;
 
 final class LeaveRequestRepositoryConstants {
 

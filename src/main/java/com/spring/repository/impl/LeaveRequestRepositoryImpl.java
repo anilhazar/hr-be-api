@@ -1,4 +1,4 @@
-package com.spring.repository.impl.leaverequest;
+package com.spring.repository.impl;
 
 import com.spring.model.entity.LeaveRequestEntity;
 import com.spring.repository.LeaveRequestRepository;

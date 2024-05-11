@@ -1,4 +1,4 @@
-package com.spring.repository.impl.employee;
+package com.spring.repository.impl;
 
 final class EmployeeRepositoryConstants {
 
