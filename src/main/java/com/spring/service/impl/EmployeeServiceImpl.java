@@ -1,8 +1,8 @@
 package com.spring.service.impl;
 
 import com.spring.model.dto.converter.EmployeeConverter;
-import com.spring.model.dto.request.employee.EmployeeCreateRequest;
-import com.spring.model.dto.request.employee.EmployeePasswordChangeRequest;
+import com.spring.model.dto.request.EmployeeCreateRequest;
+import com.spring.model.dto.request.EmployeePasswordChangeRequest;
 import com.spring.model.dto.response.EmployeeResponse;
 import com.spring.model.entity.EmployeeEntity;
 import com.spring.repository.EmployeeRepository;
@@ -12,6 +12,7 @@ import com.spring.util.PasswordEncoder;
 import com.spring.util.PasswordGenerator;
 import org.springframework.stereotype.Service;
 
+import java.security.SecureRandom;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -45,17 +46,19 @@ class EmployeeServiceImpl implements EmployeeService {
         employeeEntity.setPassword(encodedPassword);
         ExecutorService executor = Executors.newFixedThreadPool(2);
         executor.submit(() -> {
+            employeeEntity.setUsername(generateUsername(employeeEntity));
             employeeRepository.save(employeeEntity);
-            employeeEntity.setUsername(generateUsername(employeeEntity.getId()));
-            employeeRepository.update(employeeEntity);
         });
 
         executor.submit(() -> employeeEmailService.sendUsernameAndPassword(employeeEntity));
         executor.shutdown();
     }
 
-    private String generateUsername(Long id) {
-        return "username" + (id + 17);
+    private String generateUsername(EmployeeEntity employeeEntity) {
+        SecureRandom random = new SecureRandom();
+        int randomNumber = random.nextInt(1000, 99999999);
+
+        return employeeEntity.getFirstName() + randomNumber;
     }
 
     @Override
