@@ -8,14 +8,12 @@ import com.spring.model.entity.EmployeeEntity;
 import com.spring.repository.EmployeeRepository;
 import com.spring.service.EmployeeEmailService;
 import com.spring.service.EmployeeService;
-import com.spring.util.PasswordEncoder;
 import com.spring.util.PasswordGenerator;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 @Service
 class EmployeeServiceImpl implements EmployeeService {
@@ -24,9 +22,12 @@ class EmployeeServiceImpl implements EmployeeService {
 
     private final EmployeeEmailService employeeEmailService;
 
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository, EmployeeEmailService employeeEmailService) {
+    private final PasswordEncoder passwordEncoder;
+
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, EmployeeEmailService employeeEmailService, PasswordEncoder passwordEncoder) {
         this.employeeRepository = employeeRepository;
         this.employeeEmailService = employeeEmailService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -42,16 +43,13 @@ class EmployeeServiceImpl implements EmployeeService {
 
 
         String generatedPassword = PasswordGenerator.generate();
-        String encodedPassword = PasswordEncoder.hash(generatedPassword);
+        String encodedPassword = passwordEncoder.encode(generatedPassword);
         employeeEntity.setPassword(encodedPassword);
-        ExecutorService executor = Executors.newFixedThreadPool(2);
-        executor.submit(() -> {
-            employeeEntity.setUsername(generateUsername(employeeEntity));
-            employeeRepository.save(employeeEntity);
-        });
 
-        executor.submit(() -> employeeEmailService.sendUsernameAndPassword(employeeEntity));
-        executor.shutdown();
+        employeeEntity.setUsername(generateUsername(employeeEntity));
+
+        employeeRepository.save(employeeEntity);
+        new Thread(() -> employeeEmailService.sendUsernameAndPassword(employeeEntity)).start();
     }
 
     private String generateUsername(EmployeeEntity employeeEntity) {
@@ -66,7 +64,7 @@ class EmployeeServiceImpl implements EmployeeService {
         EmployeeEntity employeeEntity = employeeRepository.findEmployeeById(id);
 
         String generatedPassword = employeePasswordChangeRequest.getNewPassword();
-        String hashedPassword = PasswordEncoder.hash(generatedPassword);
+        String hashedPassword = passwordEncoder.encode(generatedPassword);
         employeeEntity.setPassword(hashedPassword);
 
         employeeRepository.update(employeeEntity);

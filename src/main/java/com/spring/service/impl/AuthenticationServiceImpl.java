@@ -4,7 +4,7 @@ import com.spring.model.dto.request.AuthenticationRequest;
 import com.spring.model.entity.EmployeeEntity;
 import com.spring.repository.EmployeeRepository;
 import com.spring.service.AuthenticationService;
-import com.spring.util.PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.NoSuchElementException;
@@ -15,8 +15,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     private final EmployeeRepository employeeRepository;
 
-    public AuthenticationServiceImpl(EmployeeRepository employeeRepository) {
+    private final PasswordEncoder passwordEncoder;
+
+    public AuthenticationServiceImpl(EmployeeRepository employeeRepository, PasswordEncoder passwordEncoder) {
         this.employeeRepository = employeeRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -27,7 +30,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             throw new NoSuchElementException("No employee found with username of: " + authenticationRequest.getUsername());
         }
 
-        String hashedPassword = PasswordEncoder.hash(authenticationRequest.getPassword());
+        String hashedPassword = passwordEncoder.encode(authenticationRequest.getPassword());
 
         if (!(Objects.equals(employeeEntity.getPassword(), hashedPassword))) {
             throw new IllegalArgumentException("Incorrect username or password");
