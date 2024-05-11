@@ -1,7 +1,7 @@
 package com.spring.service.impl;
 
 import com.spring.model.dto.converter.LeaveRequestConverter;
-import com.spring.model.dto.request.leaverequest.LeaveRequestCreateRequest;
+import com.spring.model.dto.request.LeaveRequestCreateRequest;
 import com.spring.model.dto.response.LeaveRequestResponse;
 import com.spring.model.entity.LeaveRequestEntity;
 import com.spring.repository.LeaveRequestRepository;

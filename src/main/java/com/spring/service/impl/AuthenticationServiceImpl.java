@@ -1,6 +1,6 @@
 package com.spring.service.impl;
 
-import com.spring.model.dto.request.authentication.AuthenticationRequest;
+import com.spring.model.dto.request.AuthenticationRequest;
 import com.spring.model.entity.EmployeeEntity;
 import com.spring.repository.EmployeeRepository;
 import com.spring.service.AuthenticationService;

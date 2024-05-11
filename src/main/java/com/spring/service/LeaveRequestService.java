@@ -1,6 +1,6 @@
 package com.spring.service;
 
-import com.spring.model.dto.request.leaverequest.LeaveRequestCreateRequest;
+import com.spring.model.dto.request.LeaveRequestCreateRequest;
 import com.spring.model.dto.response.LeaveRequestResponse;
 
 import java.util.List;
