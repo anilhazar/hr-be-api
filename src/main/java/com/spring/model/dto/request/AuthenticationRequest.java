@@ -1,7 +1,11 @@
-package com.spring.model.dto.request.authentication;
+package com.spring.model.dto.request;
+
+import jakarta.validation.constraints.NotBlank;
 
 public class AuthenticationRequest {
+    @NotBlank
     private String username;
+    @NotBlank
     private String password;
 
     public AuthenticationRequest(String username, String password) {

@@ -1,4 +1,4 @@
-package com.spring.model.dto.request.leaverequest;
+package com.spring.model.dto.request;
 
 import com.spring.model.enums.RequestType;
 import jakarta.validation.constraints.FutureOrPresent;
@@ -10,7 +10,7 @@ import java.time.LocalDate;
 
 
 public class LeaveRequestCreateRequest {
-    @NotBlank
+    @NotNull
     private RequestType requestType;
     @NotBlank
     @FutureOrPresent

@@ -1,4 +1,4 @@
-package com.spring.model.dto.request.employee;
+package com.spring.model.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 
