@@ -8,6 +8,8 @@ public interface LeaveRequestRepository {
 
     void save(LeaveRequestEntity leaveRequestEntity);
 
+    void update(LeaveRequestEntity leaveRequestEntity);
+
     LeaveRequestEntity findLeaveRequestsById(Long id);
 
     List<LeaveRequestEntity> list(Long id);

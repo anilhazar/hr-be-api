@@ -40,6 +40,25 @@ class LeaveRequestRepositoryImpl implements LeaveRequestRepository {
     }
 
     @Override
+    public void update(LeaveRequestEntity leaveRequestEntity) {
+
+        try (Connection connection = sql2o.open();
+             Query query = connection.createQuery(LeaveRequestRepositoryConstants.UPDATE_BY_ID)) {
+            query
+                    .addParameter(LeaveRequestMapper.REQUEST_TYPE.getField(), leaveRequestEntity.getRequestType())
+                    .addParameter(LeaveRequestMapper.STATUS.getField(), leaveRequestEntity.getStatus())
+                    .addParameter(LeaveRequestMapper.CREATE_DATE.getField(), leaveRequestEntity.getCreateDate())
+                    .addParameter(LeaveRequestMapper.START_DATE.getField(), leaveRequestEntity.getStartDate())
+                    .addParameter(LeaveRequestMapper.END_DATE.getField(), leaveRequestEntity.getEndDate())
+                    .addParameter(LeaveRequestMapper.EMPLOYEE_ID.getField(), leaveRequestEntity.getEmployeeId())
+                    .executeUpdate();
+
+        } catch (Sql2oException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public LeaveRequestEntity findLeaveRequestsById(Long id) {
         try (Connection connection = sql2o.open();
              Query query = connection.createQuery(LeaveRequestRepositoryConstants.FIND_BY_ID)) {

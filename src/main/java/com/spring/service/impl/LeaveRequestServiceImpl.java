@@ -2,9 +2,11 @@ package com.spring.service.impl;
 
 import com.spring.model.dto.converter.LeaveRequestConverter;
 import com.spring.model.dto.request.LeaveRequestCreateRequest;
+import com.spring.model.dto.request.LeaveRequestStatusChangeRequest;
 import com.spring.model.dto.response.LeaveRequestResponse;
 import com.spring.model.entity.LeaveRequestEntity;
 import com.spring.repository.LeaveRequestRepository;
+import com.spring.service.LeaveRequestEmailService;
 import com.spring.service.LeaveRequestService;
 import org.springframework.stereotype.Service;
 
@@ -16,12 +18,15 @@ class LeaveRequestServiceImpl implements LeaveRequestService {
 
     private final LeaveRequestRepository leaveRequestRepository;
 
-    public LeaveRequestServiceImpl(LeaveRequestRepository leaveRequestRepository) {
+    private final LeaveRequestEmailService leaveRequestEmailService;
+
+    public LeaveRequestServiceImpl(LeaveRequestRepository leaveRequestRepository, LeaveRequestEmailService leaveRequestEmailService) {
         this.leaveRequestRepository = leaveRequestRepository;
+        this.leaveRequestEmailService = leaveRequestEmailService;
     }
 
     @Override
-    public void createLeaveRequest(LeaveRequestCreateRequest leaveRequestCreateRequest) {
+    public void create(LeaveRequestCreateRequest leaveRequestCreateRequest) {
         LeaveRequestEntity leaveRequestEntity = LeaveRequestConverter.toEntity(leaveRequestCreateRequest);
         assignCurrentDate(leaveRequestEntity);
         leaveRequestRepository.save(leaveRequestEntity);
@@ -32,11 +37,25 @@ class LeaveRequestServiceImpl implements LeaveRequestService {
     }
 
     @Override
-    public List<LeaveRequestResponse> listLeaveRequests(Long id) {
+    public List<LeaveRequestResponse> listByEmployeeId(Long id) {
 
-        List<LeaveRequestEntity> leaveRequestEntityList = leaveRequestRepository.list(id);
+        List<LeaveRequestEntity> leaveRequestEntityList = leaveRequestRepository.findLeaveRequestByEmployeeId(id);
         return LeaveRequestConverter.toResponse(leaveRequestEntityList);
     }
+
+
+    @Override
+    public void changeStatusById(LeaveRequestStatusChangeRequest leaveRequestStatusChangeRequest) {
+        LeaveRequestEntity leaveRequestEntity = leaveRequestRepository.findLeaveRequestsById(leaveRequestStatusChangeRequest.getId());
+        leaveRequestEntity.setStatus(leaveRequestStatusChangeRequest.getStatus());
+
+        leaveRequestRepository.update(leaveRequestEntity);
+
+        new Thread(() -> leaveRequestEmailService.sendLeaveRequestStatusUpdate(leaveRequestEntity)).start();
+
+    }
+
+
 
 
 }
