@@ -71,4 +71,7 @@ public class EmployeeEntity {
         this.password = password;
     }
 
+    public String getFirstname() {
+        return firstName;
+    }
 }

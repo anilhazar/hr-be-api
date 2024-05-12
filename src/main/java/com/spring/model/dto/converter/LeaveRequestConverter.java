@@ -33,9 +33,9 @@ public final class LeaveRequestConverter {
         );
     }
 
-    public static List<LeaveRequestResponse> toResponse(List<LeaveRequestEntity> leaveRequestEntityList) {
+    public static List<LeaveRequestResponse> toResponse(List<LeaveRequestEntity> leaveRequestEntities) {
         List<LeaveRequestResponse> leaveRequestResponses = new ArrayList<>();
-        for (LeaveRequestEntity leaveRequestEntity : leaveRequestEntityList) {
+        for (LeaveRequestEntity leaveRequestEntity : leaveRequestEntities) {
             leaveRequestResponses.add(toResponse(leaveRequestEntity));
         }
         return leaveRequestResponses;

@@ -10,7 +10,7 @@ public class LeaveRequestEntity {
 
     private final RequestType requestType;
 
-    private final Status status;
+    private Status status;
 
     private LocalDate createDate;
 
@@ -64,5 +64,7 @@ public class LeaveRequestEntity {
         return employeeId;
     }
 
-
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 }
