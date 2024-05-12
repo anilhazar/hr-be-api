@@ -39,14 +39,14 @@ class LeaveRequestServiceImpl implements LeaveRequestService {
     @Override
     public List<LeaveRequestResponse> listByEmployeeId(Long id) {
 
-        List<LeaveRequestEntity> leaveRequestEntityList = leaveRequestRepository.findLeaveRequestByEmployeeId(id);
+        List<LeaveRequestEntity> leaveRequestEntityList = leaveRequestRepository.findAllById(id);
         return LeaveRequestConverter.toResponse(leaveRequestEntityList);
     }
 
 
     @Override
-    public void changeStatusById(LeaveRequestStatusChangeRequest leaveRequestStatusChangeRequest) {
-        LeaveRequestEntity leaveRequestEntity = leaveRequestRepository.findLeaveRequestsById(leaveRequestStatusChangeRequest.getId());
+    public void updateStatus(LeaveRequestStatusChangeRequest leaveRequestStatusChangeRequest) {
+        LeaveRequestEntity leaveRequestEntity = leaveRequestRepository.findById(leaveRequestStatusChangeRequest.getId());
         leaveRequestEntity.setStatus(leaveRequestStatusChangeRequest.getStatus());
 
         leaveRequestRepository.update(leaveRequestEntity);

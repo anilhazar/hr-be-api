@@ -60,7 +60,7 @@ class LeaveRequestRepositoryImpl implements LeaveRequestRepository {
     }
 
     @Override
-    public LeaveRequestEntity findLeaveRequestsById(Long id) {
+    public LeaveRequestEntity findById(Long id) {
         try (Connection connection = sql2o.open();
              Query query = connection.createQuery(LeaveRequestRepositoryConstants.FIND_BY_ID)) {
 
@@ -78,7 +78,7 @@ class LeaveRequestRepositoryImpl implements LeaveRequestRepository {
     }
 
     @Override
-    public List<LeaveRequestEntity> findLeaveRequestByEmployeeId(Long employeeId) {
+    public List<LeaveRequestEntity> findAllById(Long employeeId) {
 
         try (Connection connection = sql2o.open();
              Query query = connection.createQuery(LeaveRequestRepositoryConstants.FIND_BY_EMPLOYEE)) {

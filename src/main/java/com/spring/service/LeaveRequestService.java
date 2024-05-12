@@ -9,7 +9,7 @@ import java.util.List;
 public interface LeaveRequestService {
     void create(LeaveRequestCreateRequest leaveRequestCreateRequest);
 
-    void changeStatusById(LeaveRequestStatusChangeRequest leaveRequestStatusChangeRequest);
+    void updateStatus(LeaveRequestStatusChangeRequest leaveRequestStatusChangeRequest);
 
     List<LeaveRequestResponse> listByEmployeeId(Long id);
 

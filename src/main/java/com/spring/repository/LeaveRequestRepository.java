@@ -10,9 +10,9 @@ public interface LeaveRequestRepository {
 
     void update(LeaveRequestEntity leaveRequestEntity);
 
-    LeaveRequestEntity findLeaveRequestsById(Long id);
+    LeaveRequestEntity findById(Long id);
 
-    List<LeaveRequestEntity> findLeaveRequestByEmployeeId(Long id);
+    List<LeaveRequestEntity> findAllById(Long id);
 
     List<LeaveRequestEntity> findLeavesByTodayDate();
 }
