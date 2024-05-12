@@ -16,6 +16,7 @@ import java.util.List;
 class LeaveRequestRepositoryImpl implements LeaveRequestRepository {
 
     private final Sql2o sql2o;
+
     public LeaveRequestRepositoryImpl(Sql2o sql2o) {
         this.sql2o = sql2o;
     }
@@ -25,14 +26,14 @@ class LeaveRequestRepositoryImpl implements LeaveRequestRepository {
 
         try (Connection connection = sql2o.open();
              Query query = connection.createQuery(LeaveRequestRepositoryConstants.SAVE)) {
-                query
-                        .addParameter(LeaveRequestMapper.REQUEST_TYPE.getField(), leaveRequestEntity.getRequestType())
-                        .addParameter(LeaveRequestMapper.STATUS.getField(), leaveRequestEntity.getStatus())
-                        .addParameter(LeaveRequestMapper.CREATE_DATE.getField(), leaveRequestEntity.getCreateDate())
-                        .addParameter(LeaveRequestMapper.START_DATE.getField(), leaveRequestEntity.getStartDate())
-                        .addParameter(LeaveRequestMapper.END_DATE.getField(), leaveRequestEntity.getEndDate())
-                        .addParameter(LeaveRequestMapper.EMPLOYEE_ID.getField(), leaveRequestEntity.getEmployeeId())
-                        .executeUpdate();
+            query
+                    .addParameter(LeaveRequestMapper.REQUEST_TYPE.getField(), leaveRequestEntity.getRequestType())
+                    .addParameter(LeaveRequestMapper.STATUS.getField(), leaveRequestEntity.getStatus())
+                    .addParameter(LeaveRequestMapper.CREATE_DATE.getField(), leaveRequestEntity.getCreateDate())
+                    .addParameter(LeaveRequestMapper.START_DATE.getField(), leaveRequestEntity.getStartDate())
+                    .addParameter(LeaveRequestMapper.END_DATE.getField(), leaveRequestEntity.getEndDate())
+                    .addParameter(LeaveRequestMapper.EMPLOYEE_ID.getField(), leaveRequestEntity.getEmployeeId())
+                    .executeUpdate();
 
         } catch (Sql2oException e) {
             e.printStackTrace();
@@ -76,20 +77,35 @@ class LeaveRequestRepositoryImpl implements LeaveRequestRepository {
 
     }
 
-
     @Override
-    public List<LeaveRequestEntity> list(Long employeeId) {
+    public List<LeaveRequestEntity> findLeaveRequestByEmployeeId(Long employeeId) {
 
         try (Connection connection = sql2o.open();
-             Query query = connection.createQuery(LeaveRequestRepositoryConstants.LIST)) {
-                query
-                        .addParameter(LeaveRequestMapper.EMPLOYEE_ID.getField(), employeeId)
-                        .setColumnMappings(LeaveRequestMapper.getColumnFieldMMappings());
-                return query.executeAndFetch(LeaveRequestEntity.class);
+             Query query = connection.createQuery(LeaveRequestRepositoryConstants.FIND_BY_EMPLOYEE)) {
+            query
+                    .addParameter(LeaveRequestMapper.EMPLOYEE_ID.getField(), employeeId)
+                    .setColumnMappings(LeaveRequestMapper.getColumnFieldMMappings());
+            return query.executeAndFetch(LeaveRequestEntity.class);
 
         } catch (Sql2oException e) {
             e.printStackTrace();
             return Collections.emptyList();
         }
     }
+
+    @Override
+    public List<LeaveRequestEntity> findLeavesByTodayDate() {
+
+        try (Connection connection = sql2o.open();
+             Query query = connection.createQuery(LeaveRequestRepositoryConstants.FIND_BY_DATE)) {
+            query.setColumnMappings(LeaveRequestMapper.getColumnFieldMMappings());
+
+            return query.executeAndFetch(LeaveRequestEntity.class);
+
+        } catch (Sql2oException e) {
+            e.printStackTrace();
+            return Collections.emptyList();
+        }
+    }
+
 }

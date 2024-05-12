@@ -12,5 +12,7 @@ public interface LeaveRequestRepository {
 
     LeaveRequestEntity findLeaveRequestsById(Long id);
 
-    List<LeaveRequestEntity> list(Long id);
+    List<LeaveRequestEntity> findLeaveRequestByEmployeeId(Long id);
+
+    List<LeaveRequestEntity> findLeavesByTodayDate();
 }

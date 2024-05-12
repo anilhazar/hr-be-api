@@ -55,6 +55,11 @@ class LeaveRequestServiceImpl implements LeaveRequestService {
 
     }
 
+    @Override
+    public List<LeaveRequestResponse> listLeavesOfToday() {
+        List<LeaveRequestEntity> leaveRequestEntities = leaveRequestRepository.findLeavesByTodayDate();
+        return LeaveRequestConverter.toResponse(leaveRequestEntities);
+    }
 
 
 

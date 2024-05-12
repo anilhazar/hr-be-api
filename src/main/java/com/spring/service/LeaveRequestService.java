@@ -7,8 +7,12 @@ import com.spring.model.dto.response.LeaveRequestResponse;
 import java.util.List;
 
 public interface LeaveRequestService {
-    void createLeaveRequest(LeaveRequestCreateRequest leaveRequestCreateRequest);
+    void create(LeaveRequestCreateRequest leaveRequestCreateRequest);
 
-    List<LeaveRequestResponse> listLeaveRequests(Long id);
+    void changeStatusById(LeaveRequestStatusChangeRequest leaveRequestStatusChangeRequest);
+
+    List<LeaveRequestResponse> listByEmployeeId(Long id);
+
+    List<LeaveRequestResponse> listLeavesOfToday();
 
 }

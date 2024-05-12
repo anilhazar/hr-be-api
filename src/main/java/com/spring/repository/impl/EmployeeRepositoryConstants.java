@@ -14,7 +14,7 @@ final class EmployeeRepositoryConstants {
             "FROM employee " +
             "WHERE id = :id";
 
-    static final String UPDATE = "UPDATE employee "
+    static final String UPDATE_BY_ID = "UPDATE employee "
             + "SET first_name = :firstName, last_name = :lastName, age = :age, gender = :gender, email = :email, username = :username, password = :password "
             + "WHERE id = :id";
 

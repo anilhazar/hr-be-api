@@ -47,7 +47,7 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
     public void update(EmployeeEntity employeeEntity) {
 
         try (Connection connection = sql2o.open();
-             Query query = connection.createQuery(EmployeeRepositoryConstants.UPDATE)) {
+             Query query = connection.createQuery(EmployeeRepositoryConstants.UPDATE_BY_ID)) {
                 query
                         .addParameter(EmployeeMapper.ID.getField(), employeeEntity.getId())
                         .addParameter(EmployeeMapper.FIRST_NAME.getField(), employeeEntity.getFirstName())
