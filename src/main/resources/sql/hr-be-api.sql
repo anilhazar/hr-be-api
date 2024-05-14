@@ -17,7 +17,7 @@ CREATE TABLE leave_request
     id           BIGINT AUTO_INCREMENT PRIMARY KEY               NOT NULL,
     employee_id  BIGINT                                          NOT NULL,
     request_type ENUM ('BIRTH', 'ANNUAL', 'PATERNITY', 'EXCUSE') NOT NULL,
-    status       ENUM ('APPROVED', 'REJECTED', 'PENDING')        NOT NULL,
+    requestStatus ENUM ('APPROVED', 'REJECTED', 'PENDING') NOT NULL,
     create_date  DATE                                            NOT NULL,
     start_date   DATE                                            NOT NULL,
     end_date     DATE                                            NOT NULL,

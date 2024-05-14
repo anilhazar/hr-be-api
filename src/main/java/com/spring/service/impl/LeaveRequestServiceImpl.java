@@ -10,7 +10,6 @@ import com.spring.service.LeaveRequestEmailService;
 import com.spring.service.LeaveRequestService;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -28,25 +27,29 @@ class LeaveRequestServiceImpl implements LeaveRequestService {
     @Override
     public void create(LeaveRequestCreateRequest leaveRequestCreateRequest) {
         LeaveRequestEntity leaveRequestEntity = LeaveRequestConverter.toEntity(leaveRequestCreateRequest);
-        assignCurrentDate(leaveRequestEntity);
         leaveRequestRepository.save(leaveRequestEntity);
     }
 
-    private void assignCurrentDate(LeaveRequestEntity leaveRequestEntity) {
-        leaveRequestEntity.setCreateDate(LocalDate.now());
-    }
 
     @Override
     public List<LeaveRequestResponse> listByEmployeeId(Long id) {
 
-        List<LeaveRequestEntity> leaveRequestEntityList = leaveRequestRepository.findAllById(id);
+        List<LeaveRequestEntity> leaveRequestEntityList = leaveRequestRepository.findAllById(id)
+                .orElseThrow(() -> new RuntimeException("No Employee Found with id of " + id));
         return LeaveRequestConverter.toResponse(leaveRequestEntityList);
     }
 
 
     @Override
     public void updateStatus(LeaveRequestStatusChangeRequest leaveRequestStatusChangeRequest) {
-        LeaveRequestEntity leaveRequestEntity = leaveRequestRepository.findById(leaveRequestStatusChangeRequest.getId());
+
+        LeaveRequestEntity leaveRequestEntity = leaveRequestRepository.findById(leaveRequestStatusChangeRequest.getId())
+                .orElseThrow(() -> new RuntimeException("No Leaves Found with related Id of "
+                        + leaveRequestStatusChangeRequest.getId() + "and RequestStatus of " + leaveRequestStatusChangeRequest.getStatus()));
+
+        if (leaveRequestEntity.getStatus().equals(leaveRequestStatusChangeRequest.getStatus())) {
+            throw new IllegalArgumentException("Equal RequestStatus Values Detected, RequestStatus Update Attempt Failed");
+        }
         leaveRequestEntity.setStatus(leaveRequestStatusChangeRequest.getStatus());
 
         leaveRequestRepository.update(leaveRequestEntity);
@@ -57,7 +60,8 @@ class LeaveRequestServiceImpl implements LeaveRequestService {
 
     @Override
     public List<LeaveRequestResponse> listLeavesOfToday() {
-        List<LeaveRequestEntity> leaveRequestEntities = leaveRequestRepository.findLeavesByTodayDate();
+        List<LeaveRequestEntity> leaveRequestEntities = leaveRequestRepository.findLeavesByTodayDate()
+                .orElseThrow(() -> new RuntimeException("No Leave found for today"));
         return LeaveRequestConverter.toResponse(leaveRequestEntities);
     }
 

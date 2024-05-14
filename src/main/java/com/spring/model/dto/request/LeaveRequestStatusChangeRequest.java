@@ -1,6 +1,6 @@
 package com.spring.model.dto.request;
 
-import com.spring.model.enums.Status;
+import com.spring.model.enums.RequestStatus;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
@@ -9,21 +9,21 @@ public class LeaveRequestStatusChangeRequest {
     @Positive
     private Long id;
     @NotNull
-    private Status status;
+    private RequestStatus requestStatus;
 
     public void setId(Long id) {
         this.id = id;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setStatus(RequestStatus requestStatus) {
+        this.requestStatus = requestStatus;
     }
 
     public Long getId() {
         return id;
     }
 
-    public Status getStatus() {
-        return status;
+    public RequestStatus getStatus() {
+        return requestStatus;
     }
 }

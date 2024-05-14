@@ -3,8 +3,9 @@ package com.spring.model.dto.converter;
 import com.spring.model.dto.request.LeaveRequestCreateRequest;
 import com.spring.model.dto.response.LeaveRequestResponse;
 import com.spring.model.entity.LeaveRequestEntity;
-import com.spring.model.enums.Status;
+import com.spring.model.enums.RequestStatus;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public final class LeaveRequestConverter {
     public static LeaveRequestEntity toEntity(LeaveRequestCreateRequest leaveRequestCreateRequest) {
         return new LeaveRequestEntity(
                 leaveRequestCreateRequest.getRequestType(),
-                Status.PENDING,
+                RequestStatus.PENDING,
                 leaveRequestCreateRequest.getStartDate(),
                 leaveRequestCreateRequest.getEndDate(),
                 leaveRequestCreateRequest.getEmployeeId()
@@ -27,7 +28,7 @@ public final class LeaveRequestConverter {
         return new LeaveRequestResponse(
                 leaveRequestEntity.getRequestType(),
                 leaveRequestEntity.getStatus(),
-                leaveRequestEntity.getCreateDate(),
+                LocalDate.now(),
                 leaveRequestEntity.getStartDate(),
                 leaveRequestEntity.getEndDate()
         );

@@ -7,9 +7,6 @@ import com.spring.service.AuthenticationService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.NoSuchElementException;
-import java.util.Objects;
-
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {
 
@@ -24,15 +21,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public void login(AuthenticationRequest authenticationRequest) {
-        EmployeeEntity employeeEntity = employeeRepository.findEmployeeByUsername(authenticationRequest.getUsername());
+        EmployeeEntity employeeEntity = employeeRepository.findEmployeeByUsername(authenticationRequest.getUsername())
+                .orElseThrow(() -> new RuntimeException("Incorrect Username or Password"));
 
-        if (employeeEntity == null) {
-            throw new NoSuchElementException("No employee found with username of: " + authenticationRequest.getUsername());
-        }
+        boolean isCorrect = passwordEncoder.matches(authenticationRequest.getPassword(), employeeEntity.getPassword());
 
-        String hashedPassword = passwordEncoder.encode(authenticationRequest.getPassword());
-
-        if (!(Objects.equals(employeeEntity.getPassword(), hashedPassword))) {
+        if (!isCorrect) {
             throw new IllegalArgumentException("Incorrect username or password");
         }
     }

@@ -3,6 +3,7 @@ package com.spring.repository;
 import com.spring.model.entity.LeaveRequestEntity;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface LeaveRequestRepository {
 
@@ -10,9 +11,9 @@ public interface LeaveRequestRepository {
 
     void update(LeaveRequestEntity leaveRequestEntity);
 
-    LeaveRequestEntity findById(Long id);
+    Optional<LeaveRequestEntity> findById(Long id);
 
-    List<LeaveRequestEntity> findAllById(Long id);
+    Optional<List<LeaveRequestEntity>> findAllById(Long id);
 
-    List<LeaveRequestEntity> findLeavesByTodayDate();
+    Optional<List<LeaveRequestEntity>> findLeavesByTodayDate();
 }

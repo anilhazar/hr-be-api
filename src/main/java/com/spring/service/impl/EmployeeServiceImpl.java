@@ -33,7 +33,8 @@ class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<EmployeeResponse> findAllEmployee() {
 
-        List<EmployeeEntity> employeeEntities = employeeRepository.findAllEmployee();
+        List<EmployeeEntity> employeeEntities = employeeRepository.findAllEmployee()
+                .orElseThrow(() -> new RuntimeException("No Employee found"));
         return EmployeeConverter.toResponse(employeeEntities);
     }
 
@@ -61,7 +62,8 @@ class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void changeEmployeePassword(Long id, EmployeePasswordChangeRequest employeePasswordChangeRequest) {
-        EmployeeEntity employeeEntity = employeeRepository.findEmployeeById(id);
+        EmployeeEntity employeeEntity = employeeRepository.findEmployeeById(id)
+                .orElseThrow(() -> new RuntimeException("No Employee found with id of " + id));
 
         String generatedPassword = employeePasswordChangeRequest.getNewPassword();
         String hashedPassword = passwordEncoder.encode(generatedPassword);
