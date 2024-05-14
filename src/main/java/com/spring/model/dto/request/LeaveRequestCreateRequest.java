@@ -2,7 +2,6 @@ package com.spring.model.dto.request;
 
 import com.spring.model.enums.RequestType;
 import jakarta.validation.constraints.FutureOrPresent;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
@@ -12,10 +11,10 @@ import java.time.LocalDate;
 public class LeaveRequestCreateRequest {
     @NotNull
     private RequestType requestType;
-    @NotBlank
+    @NotNull
     @FutureOrPresent
     private LocalDate startDate;
-    @NotBlank
+    @NotNull
     @FutureOrPresent
     private LocalDate endDate;
     @NotNull

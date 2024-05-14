@@ -57,7 +57,7 @@ class EmployeeServiceImpl implements EmployeeService {
         SecureRandom random = new SecureRandom();
         int randomNumber = random.nextInt(1000, 99999999);
 
-        return employeeEntity.getFirstName() + randomNumber;
+        return employeeEntity.getfirstName() + randomNumber;
     }
 
     @Override

@@ -23,3 +23,6 @@ CREATE TABLE leave_request
     end_date     DATE                                            NOT NULL,
     CONSTRAINT fk__employee_id__leave_request FOREIGN KEY (employee_id) REFERENCES employee (id)
 );
+
+ALTER TABLE `employee`
+    ADD COLUMN `birthday` DATE AFTER `gender`;

@@ -19,10 +19,11 @@ class LeaveRequestEmailServiceImpl implements LeaveRequestEmailService {
 
     @Override
     public void sendLeaveRequestStatusUpdate(LeaveRequestEntity leaveRequestEntity) {
-        EmployeeEntity employeeEntity = employeeRepository.findEmployeeById(leaveRequestEntity.getEmployeeId());
+        EmployeeEntity employeeEntity = employeeRepository.findEmployeeById(leaveRequestEntity.getEmployeeId())
+                .orElseThrow(() -> new RuntimeException("No employee found with id of " + leaveRequestEntity.getId()));
         String email = employeeEntity.getEmail();
         String subject = "Your Leave Information";
-        String content = "Dear " + employeeEntity.getFirstname() + ",\n\n"
+        String content = "Dear " + employeeEntity.getFirstName() + ",\n\n"
                 + "We are pleased to inform you that your leave request is " + leaveRequestEntity.getStatus().toString().toLowerCase() + "\n\n"
                 + "Best regards,\n"
                 + "COD Human Resources";

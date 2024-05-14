@@ -27,9 +27,10 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
              Query query = connection.createQuery(EmployeeRepositoryConstants.SAVE, true)) {
             query
 
-                    .addParameter(EmployeeMapper.FIRST_NAME.getField(), employeeEntity.getFirstName())
+                    .addParameter(EmployeeMapper.FIRST_NAME.getField(), employeeEntity.getfirstName())
                     .addParameter(EmployeeMapper.LAST_NAME.getField(), employeeEntity.getLastName())
                     .addParameter(EmployeeMapper.GENDER.getField(), employeeEntity.getGender())
+                    .addParameter(EmployeeMapper.BIRTHDAY.getField(), employeeEntity.getBirthday())
                     .addParameter(EmployeeMapper.AGE.getField(), employeeEntity.getAge())
                     .addParameter(EmployeeMapper.EMAIL.getField(), employeeEntity.getEmail())
                     .addParameter(EmployeeMapper.USERNAME.getField(), employeeEntity.getUsername())
@@ -51,9 +52,10 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
 
             query
                         .addParameter(EmployeeMapper.ID.getField(), employeeEntity.getId())
-                        .addParameter(EmployeeMapper.FIRST_NAME.getField(), employeeEntity.getFirstName())
+                    .addParameter(EmployeeMapper.FIRST_NAME.getField(), employeeEntity.getfirstName())
                         .addParameter(EmployeeMapper.LAST_NAME.getField(), employeeEntity.getLastName())
                         .addParameter(EmployeeMapper.GENDER.getField(), employeeEntity.getGender())
+                    .addParameter(EmployeeMapper.BIRTHDAY.getField(), employeeEntity.getBirthday())
                         .addParameter(EmployeeMapper.AGE.getField(), employeeEntity.getAge())
                         .addParameter(EmployeeMapper.EMAIL.getField(), employeeEntity.getEmail())
                         .addParameter(EmployeeMapper.USERNAME.getField(), employeeEntity.getUsername())

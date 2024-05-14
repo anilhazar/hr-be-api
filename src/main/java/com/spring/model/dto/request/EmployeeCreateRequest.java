@@ -2,6 +2,8 @@ package com.spring.model.dto.request;
 
 import jakarta.validation.constraints.*;
 
+import java.time.LocalDate;
+
 public class EmployeeCreateRequest {
     @NotBlank
     @Size(min = 2, max = 45)
@@ -12,6 +14,9 @@ public class EmployeeCreateRequest {
     @NotBlank
     @Size(min = 2, max = 45)
     private String gender;
+    @NotNull
+    @Past
+    private LocalDate birthday;
     @NotNull
     @Positive
     private Integer age;
@@ -38,6 +43,14 @@ public class EmployeeCreateRequest {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public LocalDate getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(LocalDate birthday) {
+        this.birthday = birthday;
     }
 
     public String getFirstName() {
