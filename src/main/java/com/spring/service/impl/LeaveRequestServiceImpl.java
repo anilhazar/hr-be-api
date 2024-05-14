@@ -3,8 +3,10 @@ package com.spring.service.impl;
 import com.spring.model.dto.converter.LeaveRequestConverter;
 import com.spring.model.dto.request.LeaveRequestCreateRequest;
 import com.spring.model.dto.request.LeaveRequestStatusChangeRequest;
+import com.spring.model.dto.request.PaginationRequest;
 import com.spring.model.dto.response.LeaveRequestResponse;
 import com.spring.model.entity.LeaveRequestEntity;
+import com.spring.model.enums.RequestStatus;
 import com.spring.repository.LeaveRequestRepository;
 import com.spring.service.LeaveRequestEmailService;
 import com.spring.service.LeaveRequestService;
@@ -65,6 +67,18 @@ class LeaveRequestServiceImpl implements LeaveRequestService {
         return LeaveRequestConverter.toResponse(leaveRequestEntities);
     }
 
+    @Override
+    public List<LeaveRequestResponse> listLeavesByStatus(Long id, RequestStatus requestStatus, PaginationRequest paginationRequest) {
+        List<LeaveRequestEntity> leaveRequestEntities = leaveRequestRepository.findLeavesByStatus(
+                        id,
+                        requestStatus,
+                        paginationRequest.getPageSize(),
+                        paginationRequest.getPageNumber())
+                .orElseThrow(() -> new RuntimeException("No Leaves Found with Status of " + requestStatus));
+
+        return LeaveRequestConverter.toResponse(leaveRequestEntities);
+
+    }
 
 
 }

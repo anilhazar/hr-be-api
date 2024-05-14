@@ -14,7 +14,7 @@ public class EmployeeCreateRequest {
     private String gender;
     @NotNull
     @Positive
-    private int age;
+    private Integer age;
     @NotBlank
     @Email
     private String email;
@@ -32,7 +32,7 @@ public class EmployeeCreateRequest {
         this.gender = gender;
     }
 
-    public void setAge(int age) {
+    public void setAge(@NotNull @Positive Integer age) {
         this.age = age;
     }
 
@@ -52,7 +52,7 @@ public class EmployeeCreateRequest {
         return gender;
     }
 
-    public int getAge() {
+    public @NotNull @Positive Integer getAge() {
         return age;
     }
 

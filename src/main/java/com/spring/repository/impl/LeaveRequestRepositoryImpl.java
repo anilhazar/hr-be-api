@@ -1,6 +1,7 @@
 package com.spring.repository.impl;
 
 import com.spring.model.entity.LeaveRequestEntity;
+import com.spring.model.enums.RequestStatus;
 import com.spring.repository.LeaveRequestRepository;
 import com.spring.repository.mapping.LeaveRequestMapper;
 import org.springframework.stereotype.Repository;
@@ -109,5 +110,25 @@ class LeaveRequestRepositoryImpl implements LeaveRequestRepository {
             return Optional.empty();
         }
     }
+
+    @Override
+    public Optional<List<LeaveRequestEntity>> findLeavesByStatus(Long employeeId, RequestStatus requestStatus,
+                                                                 int pageSize,
+                                                                 int pageNumber) {
+        try (Connection connection = sql2o.open();
+             Query query = connection.createQuery(LeaveRequestRepositoryConstants.FIND_BY_STATUS)) {
+            return Optional.ofNullable(query
+                    .addParameter(LeaveRequestMapper.EMPLOYEE_ID.getField(), employeeId)
+                    .addParameter(LeaveRequestMapper.STATUS.getField(), requestStatus)
+                    .addParameter("offset", (pageNumber - 1) * pageSize)
+                    .addParameter("limit", pageSize)
+                    .setColumnMappings(LeaveRequestMapper.getColumnFieldMMappings())
+                    .executeAndFetch(LeaveRequestEntity.class));
+        } catch (Sql2oException sql2oException) {
+            sql2oException.printStackTrace();
+            return Optional.empty();
+        }
+    }
+
 
 }
