@@ -3,21 +3,15 @@ package com.spring.model.entity;
 import java.time.LocalDate;
 
 public class EmployeeEntity {
+
     private Long id;
     private final String firstName;
-
     private final String lastName;
-
     private final String gender;
-
     private final LocalDate birthday;
-
     private final int age;
-
     private final String email;
-
     private String username;
-
     private String password;
 
 
@@ -83,4 +77,5 @@ public class EmployeeEntity {
     public LocalDate getBirthday() {
         return birthday;
     }
+
 }

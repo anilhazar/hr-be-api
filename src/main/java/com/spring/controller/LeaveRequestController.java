@@ -29,10 +29,10 @@ public class LeaveRequestController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/employee/{id}/leave-request")
+    @GetMapping("/leave-request/employee/${id}")
     public ResponseEntity<List<LeaveRequestResponse>> getLeaveRequests(@PathVariable @Positive Long id) {
 
-        List<LeaveRequestResponse> leaveRequestResponses = leaveRequestService.listByEmployeeId(id);
+        List<LeaveRequestResponse> leaveRequestResponses = leaveRequestService.findByEmployeeId(id);
         return ResponseEntity.ok(leaveRequestResponses);
     }
 
@@ -44,19 +44,17 @@ public class LeaveRequestController {
 
     @GetMapping("/leave-request/daily")
     public ResponseEntity<List<LeaveRequestResponse>> getDailyLeaves() {
-        List<LeaveRequestResponse> leaveRequestResponses = leaveRequestService.listLeavesOfToday();
+        List<LeaveRequestResponse> leaveRequestResponses = leaveRequestService.findOfTodayDate();
         return ResponseEntity.ok(leaveRequestResponses);
     }
 
-    @GetMapping("/employee/{id}/leave-request/{status}")
+    @GetMapping("/leave-request/{status}/employee/{id}")
     public ResponseEntity<List<LeaveRequestResponse>> getLeaveRequestsByStatus(@PathVariable @NotNull RequestStatus status,
                                                                                @PathVariable Long id,
                                                                                @RequestBody @Valid PaginationRequest paginationRequest) {
-        List<LeaveRequestResponse> leaveRequestResponses = leaveRequestService.listLeavesByStatus(id, status, paginationRequest);
+        List<LeaveRequestResponse> leaveRequestResponses = leaveRequestService.findAllByStatus(id, status, paginationRequest);
         return ResponseEntity.ok(leaveRequestResponses);
     }
-
-
 
 
 }

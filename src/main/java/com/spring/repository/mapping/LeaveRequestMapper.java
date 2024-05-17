@@ -6,15 +6,10 @@ import java.util.Map;
 public enum LeaveRequestMapper {
     ID("id", "id"),
     REQUEST_TYPE("request_type", "requestType"),
-
     STATUS("status", "status"),
-
     CREATE_DATE("create_Date", "createDate"),
-
     START_DATE("start_date", "startDate"),
-
     END_DATE("end_date", "endDate"),
-
     EMPLOYEE_ID("employee_id", "employeeId");
 
     private final String column;

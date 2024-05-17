@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum EmployeeMapper {
+
     ID("ID", "id"),
     FIRST_NAME("FIRST_NAME", "firstName"),
     LAST_NAME("LAST_NAME", "lastName"),
@@ -36,4 +37,6 @@ public enum EmployeeMapper {
     public String getField() {
         return field;
     }
+
+
 }

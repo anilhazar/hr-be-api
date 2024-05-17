@@ -3,6 +3,7 @@ package com.spring.model.dto.request;
 import jakarta.validation.constraints.NotBlank;
 
 public class EmployeePasswordChangeRequest {
+
     @NotBlank
     private String newPassword;
 

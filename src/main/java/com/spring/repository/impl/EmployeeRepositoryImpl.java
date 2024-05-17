@@ -23,6 +23,7 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
 
     @Override
     public void save(EmployeeEntity employeeEntity) {
+
         try (Connection connection = sql2o.open();
              Query query = connection.createQuery(EmployeeRepositoryConstants.SAVE, true)) {
             query

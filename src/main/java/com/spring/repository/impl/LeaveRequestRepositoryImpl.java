@@ -79,54 +79,54 @@ class LeaveRequestRepositoryImpl implements LeaveRequestRepository {
     }
 
     @Override
-    public Optional<List<LeaveRequestEntity>> findAllById(Long employeeId) {
+    public List<LeaveRequestEntity> findAllById(Long employeeId) {
 
         try (Connection connection = sql2o.open();
              Query query = connection.createQuery(LeaveRequestRepositoryConstants.FIND_BY_EMPLOYEE)) {
 
-            return Optional.ofNullable(query
+            return  query
                     .addParameter(LeaveRequestMapper.EMPLOYEE_ID.getField(), employeeId)
                     .setColumnMappings(LeaveRequestMapper.getColumnFieldMMappings())
-                    .executeAndFetch(LeaveRequestEntity.class));
+                    .executeAndFetch(LeaveRequestEntity.class);
 
         } catch (Sql2oException e) {
             e.printStackTrace();
-            return Optional.empty();
+            return List.of();
         }
     }
 
     @Override
-    public Optional<List<LeaveRequestEntity>> findLeavesByTodayDate() {
+    public List<LeaveRequestEntity> findLeavesByTodayDate() {
 
         try (Connection connection = sql2o.open();
              Query query = connection.createQuery(LeaveRequestRepositoryConstants.FIND_BY_DATE)) {
 
-            return Optional.ofNullable(query
+            return query
                     .setColumnMappings(LeaveRequestMapper.getColumnFieldMMappings())
-                    .executeAndFetch(LeaveRequestEntity.class));
+                    .executeAndFetch(LeaveRequestEntity.class);
 
         } catch (Sql2oException e) {
             e.printStackTrace();
-            return Optional.empty();
+            return List.of();
         }
     }
 
     @Override
-    public Optional<List<LeaveRequestEntity>> findLeavesByStatus(Long employeeId, RequestStatus requestStatus,
+    public List<LeaveRequestEntity> findLeavesByStatus(Long employeeId, RequestStatus requestStatus,
                                                                  int pageSize,
                                                                  int pageNumber) {
         try (Connection connection = sql2o.open();
              Query query = connection.createQuery(LeaveRequestRepositoryConstants.FIND_BY_STATUS)) {
-            return Optional.ofNullable(query
+            return query
                     .addParameter(LeaveRequestMapper.EMPLOYEE_ID.getField(), employeeId)
                     .addParameter(LeaveRequestMapper.STATUS.getField(), requestStatus)
                     .addParameter("offset", (pageNumber - 1) * pageSize)
                     .addParameter("limit", pageSize)
                     .setColumnMappings(LeaveRequestMapper.getColumnFieldMMappings())
-                    .executeAndFetch(LeaveRequestEntity.class));
+                    .executeAndFetch(LeaveRequestEntity.class);
         } catch (Sql2oException sql2oException) {
             sql2oException.printStackTrace();
-            return Optional.empty();
+            return List.of();
         }
     }
 

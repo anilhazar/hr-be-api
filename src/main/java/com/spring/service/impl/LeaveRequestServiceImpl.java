@@ -34,10 +34,9 @@ class LeaveRequestServiceImpl implements LeaveRequestService {
 
 
     @Override
-    public List<LeaveRequestResponse> listByEmployeeId(Long id) {
+    public List<LeaveRequestResponse> findByEmployeeId(Long id) {
 
-        List<LeaveRequestEntity> leaveRequestEntityList = leaveRequestRepository.findAllById(id)
-                .orElseThrow(() -> new RuntimeException("No Employee Found with id of " + id));
+        List<LeaveRequestEntity> leaveRequestEntityList = leaveRequestRepository.findAllById(id);
         return LeaveRequestConverter.toResponse(leaveRequestEntityList);
     }
 
@@ -47,10 +46,12 @@ class LeaveRequestServiceImpl implements LeaveRequestService {
 
         LeaveRequestEntity leaveRequestEntity = leaveRequestRepository.findById(leaveRequestStatusChangeRequest.getId())
                 .orElseThrow(() -> new RuntimeException("No Leaves Found with related Id of "
-                        + leaveRequestStatusChangeRequest.getId() + "and RequestStatus of " + leaveRequestStatusChangeRequest.getStatus()));
+                        + leaveRequestStatusChangeRequest.getId()
+                        + "and RequestStatus of "
+                        + leaveRequestStatusChangeRequest.getStatus()));
 
         if (leaveRequestEntity.getStatus().equals(leaveRequestStatusChangeRequest.getStatus())) {
-            throw new IllegalArgumentException("Equal RequestStatus Values Detected, RequestStatus Update Attempt Failed");
+            throw new RuntimeException("Equal RequestStatus Values Detected, RequestStatus Update Attempt Failed");
         }
         leaveRequestEntity.setStatus(leaveRequestStatusChangeRequest.getStatus());
 
@@ -61,20 +62,18 @@ class LeaveRequestServiceImpl implements LeaveRequestService {
     }
 
     @Override
-    public List<LeaveRequestResponse> listLeavesOfToday() {
-        List<LeaveRequestEntity> leaveRequestEntities = leaveRequestRepository.findLeavesByTodayDate()
-                .orElseThrow(() -> new RuntimeException("No Leave found for today"));
+    public List<LeaveRequestResponse> findOfTodayDate() {
+        List<LeaveRequestEntity> leaveRequestEntities = leaveRequestRepository.findLeavesByTodayDate();
         return LeaveRequestConverter.toResponse(leaveRequestEntities);
     }
 
     @Override
-    public List<LeaveRequestResponse> listLeavesByStatus(Long id, RequestStatus requestStatus, PaginationRequest paginationRequest) {
+    public List<LeaveRequestResponse> findAllByStatus(Long id, RequestStatus requestStatus, PaginationRequest paginationRequest) {
         List<LeaveRequestEntity> leaveRequestEntities = leaveRequestRepository.findLeavesByStatus(
                         id,
                         requestStatus,
                         paginationRequest.getPageSize(),
-                        paginationRequest.getPageNumber())
-                .orElseThrow(() -> new RuntimeException("No Leaves Found with Status of " + requestStatus));
+                        paginationRequest.getPageNumber());
 
         return LeaveRequestConverter.toResponse(leaveRequestEntities);
 

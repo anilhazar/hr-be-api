@@ -27,7 +27,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         boolean isCorrect = passwordEncoder.matches(authenticationRequest.getPassword(), employeeEntity.getPassword());
 
         if (!isCorrect) {
-            throw new IllegalArgumentException("Incorrect username or password");
+            throw new RuntimeException("Incorrect username or password");
         }
     }
 }

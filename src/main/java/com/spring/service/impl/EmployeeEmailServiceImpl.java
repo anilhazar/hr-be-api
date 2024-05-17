@@ -36,17 +36,7 @@ class EmployeeEmailServiceImpl implements EmployeeEmailService {
 
     }
 
-    /**
-     * Asynchronously sends birthday emails to employees whose birthday is today.
-     * The method retrieves a list of employees, compares their birthdays with today's date,
-     * and sends personalized birthday emails to the relevant employees.
-     * The email content includes a birthday greeting and best wishes.
-     *
-     * @throws RuntimeException if no employees are found in the repository.
-     * @implNote The method uses the @Async annotation to execute the task asynchronously,
-     * allowing other operations to continue without blocking the main thread.
-     */
-    @Async
+
     @Scheduled(cron = "0  9  * * *")
     public void sendBirthdayEmail() {
 

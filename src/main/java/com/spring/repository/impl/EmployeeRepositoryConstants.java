@@ -9,7 +9,7 @@ final class EmployeeRepositoryConstants {
     static final String FIND_ALL = "SELECT id, first_name, last_name, age, birthday, gender, username, password FROM employee";
 
     static final String SAVE = "INSERT INTO employee (first_name, last_name, age, gender, birthday, email, username, password)"
-            + "VALUES (:firstName, :lastName, :age, :gender, :email, :username, :password)";
+            + "VALUES (:firstName, :lastName, :age, :gender, :birthday, :email, :username, :password)";
 
     static final String FIND_BY_ID = "SELECT id, first_name, last_name, age, birthday, gender, username, password " +
             "FROM employee " +

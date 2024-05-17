@@ -13,10 +13,10 @@ public interface LeaveRequestService {
 
     void updateStatus(LeaveRequestStatusChangeRequest leaveRequestStatusChangeRequest);
 
-    List<LeaveRequestResponse> listByEmployeeId(Long id);
+    List<LeaveRequestResponse> findByEmployeeId(Long id);
 
-    List<LeaveRequestResponse> listLeavesOfToday();
+    List<LeaveRequestResponse> findOfTodayDate();
 
-    List<LeaveRequestResponse> listLeavesByStatus(Long id, RequestStatus requestStatus, PaginationRequest paginationRequest);
+    List<LeaveRequestResponse> findAllByStatus(Long id, RequestStatus requestStatus, PaginationRequest paginationRequest);
 
 }

@@ -4,12 +4,12 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 public class PaginationRequest {
-    @NotNull
+
     @Positive
-    private Integer pageSize;
-    @NotNull
+    private int pageSize;
+
     @Positive
-    private Integer pageNumber;
+    private int pageNumber;
 
     public void setPageSize(Integer pageSize) {
         this.pageSize = pageSize;
@@ -26,4 +26,5 @@ public class PaginationRequest {
     public Integer getPageNumber() {
         return pageNumber;
     }
+
 }

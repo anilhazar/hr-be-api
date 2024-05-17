@@ -8,18 +8,22 @@ public class EmployeeCreateRequest {
     @NotBlank
     @Size(min = 2, max = 45)
     private String firstName;
+
     @NotBlank
     @Size(min = 2, max = 45)
     private String lastName;
+
     @NotBlank
     @Size(min = 2, max = 45)
     private String gender;
+
     @NotNull
     @Past
     private LocalDate birthday;
-    @NotNull
+
     @Positive
-    private Integer age;
+    private int age;
+
     @NotBlank
     @Email
     private String email;
@@ -37,7 +41,7 @@ public class EmployeeCreateRequest {
         this.gender = gender;
     }
 
-    public void setAge(@NotNull @Positive Integer age) {
+    public void setAge(int age) {
         this.age = age;
     }
 
@@ -65,7 +69,7 @@ public class EmployeeCreateRequest {
         return gender;
     }
 
-    public @NotNull @Positive Integer getAge() {
+    public int getAge() {
         return age;
     }
 

@@ -14,9 +14,9 @@ public interface LeaveRequestRepository {
 
     Optional<LeaveRequestEntity> findById(Long id);
 
-    Optional<List<LeaveRequestEntity>> findAllById(Long id);
+    List<LeaveRequestEntity> findAllById(Long id);
 
-    Optional<List<LeaveRequestEntity>> findLeavesByTodayDate();
+    List<LeaveRequestEntity> findLeavesByTodayDate();
 
-    Optional<List<LeaveRequestEntity>> findLeavesByStatus(Long id, RequestStatus requestStatus, int pageSize, int pageNumber);
+    List<LeaveRequestEntity> findLeavesByStatus(Long id, RequestStatus requestStatus, int pageSize, int pageNumber);
 }

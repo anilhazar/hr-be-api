@@ -9,14 +9,18 @@ import java.time.LocalDate;
 
 
 public class LeaveRequestCreateRequest {
+
     @NotNull
     private RequestType requestType;
+
     @NotNull
     @FutureOrPresent
     private LocalDate startDate;
+
     @NotNull
     @FutureOrPresent
     private LocalDate endDate;
+
     @NotNull
     @Positive
     private Long employeeId;

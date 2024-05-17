@@ -5,9 +5,11 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 public class LeaveRequestStatusChangeRequest {
+
     @NotNull
     @Positive
     private Long id;
+
     @NotNull
     private RequestStatus requestStatus;
 
