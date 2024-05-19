@@ -8,10 +8,11 @@ CREATE TABLE employee
     first_name VARCHAR(24)                       NOT NULL,
     last_name  VARCHAR(24)                       NOT NULL,
     gender     VARCHAR(24)                       NOT NULL,
+    birthday   DATE                              NOT NULL,
     age        INT                               NOT NULL,
     email      VARCHAR(48)                       NOT NULL,
-    username VARCHAR(24)  NOT NULL,
-    password VARCHAR(240) NOT NULL
+    username   VARCHAR(24)  NOT NULL,
+    password   VARCHAR(240) NOT NULL
 );
 
 CREATE TABLE leave_request
@@ -26,5 +27,10 @@ CREATE TABLE leave_request
     CONSTRAINT fk__employee_id__leave_request FOREIGN KEY (employee_id) REFERENCES employee (id)
 );
 
-ALTER TABLE `employee`
-    ADD COLUMN `birthday` DATE AFTER `gender`;
+INSERT INTO employee (first_name, last_name, gender, birthday, age, email)
+VALUES ('John', 'Doe', 'Male', 30, '1996-08-17', 'johndoe@example.com');
+
+INSERT INTO leave_request (employee_id, request_type, status, start_date, end_date)
+VALUES (1, 'ANNUAL', 'PENDING', '2024-06-01', '2024-06-10');
+
+
