@@ -68,15 +68,15 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
     }
 
     @Override
-    public Optional<List<EmployeeEntity>> findAllEmployee() {
+    public List<EmployeeEntity> findAllEmployee() {
 
         try (Connection connection = sql2o.open();
              Query query = connection.createQuery(EmployeeRepositoryConstants.FIND_ALL)) {
 
-            return Optional.ofNullable(query.executeAndFetch(EmployeeEntity.class));
+            return query.executeAndFetch(EmployeeEntity.class);
         } catch (Sql2oException sql2oException) {
             sql2oException.printStackTrace();
-            return Optional.empty();
+            return List.of();
         }
     }
 

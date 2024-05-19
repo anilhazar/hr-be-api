@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface EmployeeRepository {
-    Optional<List<EmployeeEntity>> findAllEmployee();
+    List<EmployeeEntity> findAllEmployee();
 
     void save(EmployeeEntity employeeEntity);
 

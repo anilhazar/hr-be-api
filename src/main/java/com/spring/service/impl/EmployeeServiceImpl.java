@@ -33,8 +33,12 @@ class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<EmployeeResponse> findAllEmployee() {
 
-        List<EmployeeEntity> employeeEntities = employeeRepository.findAllEmployee()
-                .orElseThrow(() -> new RuntimeException("No Employee found"));
+        List<EmployeeEntity> employeeEntities = employeeRepository.findAllEmployee();
+
+        if (employeeEntities.isEmpty()) {
+            throw new RuntimeException("No employee found");
+        }
+
         return EmployeeConverter.toResponse(employeeEntities);
     }
 
