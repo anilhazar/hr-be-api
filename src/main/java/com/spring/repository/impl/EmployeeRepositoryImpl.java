@@ -14,6 +14,7 @@ import java.util.Optional;
 
 @Repository
 class EmployeeRepositoryImpl implements EmployeeRepository {
+
     private final Sql2o sql2o;
 
     public EmployeeRepositoryImpl(Sql2o sql2o) {
@@ -41,8 +42,8 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
         } catch (Sql2oException e) {
             e.printStackTrace();
         }
-    }
 
+    }
 
 
     @Override
@@ -52,19 +53,20 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
              Query query = connection.createQuery(EmployeeRepositoryConstants.UPDATE_BY_ID)) {
 
             query
-                        .addParameter(EmployeeMapper.ID.getField(), employeeEntity.getId())
+                    .addParameter(EmployeeMapper.ID.getField(), employeeEntity.getId())
                     .addParameter(EmployeeMapper.FIRST_NAME.getField(), employeeEntity.getfirstName())
-                        .addParameter(EmployeeMapper.LAST_NAME.getField(), employeeEntity.getLastName())
-                        .addParameter(EmployeeMapper.GENDER.getField(), employeeEntity.getGender())
+                    .addParameter(EmployeeMapper.LAST_NAME.getField(), employeeEntity.getLastName())
+                    .addParameter(EmployeeMapper.GENDER.getField(), employeeEntity.getGender())
                     .addParameter(EmployeeMapper.BIRTHDAY.getField(), employeeEntity.getBirthday())
-                        .addParameter(EmployeeMapper.AGE.getField(), employeeEntity.getAge())
-                        .addParameter(EmployeeMapper.EMAIL.getField(), employeeEntity.getEmail())
-                        .addParameter(EmployeeMapper.USERNAME.getField(), employeeEntity.getUsername())
-                        .addParameter(EmployeeMapper.PASSWORD.getField(), employeeEntity.getPassword())
+                    .addParameter(EmployeeMapper.AGE.getField(), employeeEntity.getAge())
+                    .addParameter(EmployeeMapper.EMAIL.getField(), employeeEntity.getEmail())
+                    .addParameter(EmployeeMapper.USERNAME.getField(), employeeEntity.getUsername())
+                    .addParameter(EmployeeMapper.PASSWORD.getField(), employeeEntity.getPassword())
                     .executeAndFetchFirst(EmployeeEntity.class);
         } catch (Sql2oException e) {
             e.printStackTrace();
         }
+
     }
 
     @Override
@@ -78,6 +80,7 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
             sql2oException.printStackTrace();
             return List.of();
         }
+
     }
 
     @Override
@@ -94,10 +97,12 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
             e.printStackTrace();
             return Optional.empty();
         }
+
     }
 
     @Override
     public Optional<EmployeeEntity> findEmployeeByUsername(String username) {
+
         try (Connection connection = sql2o.open();
              Query query = connection.createQuery(EmployeeRepositoryConstants.FIND_BY_USERNAME)) {
 
@@ -110,4 +115,5 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
             return Optional.empty();
         }
     }
+
 }

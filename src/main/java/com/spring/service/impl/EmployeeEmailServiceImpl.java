@@ -4,7 +4,6 @@ import com.spring.model.entity.EmployeeEntity;
 import com.spring.repository.EmployeeRepository;
 import com.spring.service.EmailService;
 import com.spring.service.EmployeeEmailService;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -40,8 +39,12 @@ class EmployeeEmailServiceImpl implements EmployeeEmailService {
     @Scheduled(cron = "0  9  * * *")
     public void sendBirthdayEmail() {
 
-        List<EmployeeEntity> employees = employeeRepository.findAllEmployee()
-                .orElseThrow(() -> new RuntimeException("No Employee Found"));
+        List<EmployeeEntity> employees = employeeRepository.findAllEmployee();
+
+        if (employees.isEmpty()) {
+            throw new RuntimeException("No employee found");
+        }
+
         LocalDate today = LocalDate.now();
         LocalDate userBirthday;
         boolean isSameDayAndMonth;

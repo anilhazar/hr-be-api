@@ -16,7 +16,7 @@ public class EmployeeController {
 
     private final EmployeeService employeeService;
 
-    public EmployeeController(final EmployeeService  employeeService) {
+    public EmployeeController(final EmployeeService employeeService) {
 
         this.employeeService = employeeService;
     }
@@ -41,7 +41,6 @@ public class EmployeeController {
         employeeService.changeEmployeePassword(id, employeePasswordChangeRequest);
         return ResponseEntity.ok().build();
     }
-
 
 
 }

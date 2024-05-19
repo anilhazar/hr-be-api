@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Positive;
 
 public class LeaveRequestGetByStatusRequest {
     @NotNull
-    private  Filter filter;
+    private Filter filter;
 
     @NotNull
     private PaginationRequest paginationRequest;
@@ -35,20 +35,20 @@ public class LeaveRequestGetByStatusRequest {
         @NotNull
         private RequestStatus requestStatus;
 
-        public void setId(Long id) {
-            this.id = id;
-        }
-
-        public void setStatus(RequestStatus requestStatus) {
-            this.requestStatus = requestStatus;
-        }
-
         public Long getId() {
             return id;
         }
 
+        public void setId(Long id) {
+            this.id = id;
+        }
+
         public RequestStatus getStatus() {
             return requestStatus;
+        }
+
+        public void setStatus(RequestStatus requestStatus) {
+            this.requestStatus = requestStatus;
         }
     }
 }

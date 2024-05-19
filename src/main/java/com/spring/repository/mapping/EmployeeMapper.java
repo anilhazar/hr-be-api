@@ -15,19 +15,20 @@ public enum EmployeeMapper {
     USERNAME("USERNAME", "username"),
     PASSWORD("PASSWORD", "password");
 
-    private final String column;
-    private final String field;
     private static final Map<String, String> COLUMN_FIELD_MAPPINGS = new HashMap<>();
-
-    EmployeeMapper(String column, String field) {
-        this.column = column;
-        this.field = field;
-    }
 
     static {
         for (EmployeeMapper mapper : EmployeeMapper.values()) {
             COLUMN_FIELD_MAPPINGS.put(mapper.column, mapper.field);
         }
+    }
+
+    private final String column;
+    private final String field;
+
+    EmployeeMapper(String column, String field) {
+        this.column = column;
+        this.field = field;
     }
 
     public static Map<String, String> getColumnFieldMappings() {

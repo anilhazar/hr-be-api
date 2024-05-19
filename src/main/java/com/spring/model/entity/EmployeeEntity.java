@@ -4,13 +4,13 @@ import java.time.LocalDate;
 
 public class EmployeeEntity {
 
-    private Long id;
     private final String firstName;
     private final String lastName;
     private final String gender;
     private final LocalDate birthday;
     private final int age;
     private final String email;
+    private Long id;
     private String username;
     private String password;
 

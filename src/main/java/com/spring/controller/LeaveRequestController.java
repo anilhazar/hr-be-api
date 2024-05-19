@@ -23,12 +23,12 @@ public class LeaveRequestController {
 
     @PostMapping("/leave-request")
     public ResponseEntity<Void> createLeaveRequest(@Valid @RequestBody LeaveRequestCreateRequest
-                                                               leaveRequestCreateRequest) {
+                                                           leaveRequestCreateRequest) {
         leaveRequestService.create(leaveRequestCreateRequest);
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/leave-request/employee/${id}")
+    @GetMapping("/leave-request/employee/{id}")
     public ResponseEntity<List<LeaveRequestResponse>> getLeaveRequests(@PathVariable @Positive Long id) {
 
         List<LeaveRequestResponse> leaveRequestResponses = leaveRequestService.findByEmployeeId(id);
@@ -37,7 +37,7 @@ public class LeaveRequestController {
 
     @PutMapping("/leave-request/status")
     public ResponseEntity<Void> updateStatus(@Valid @RequestBody LeaveRequestStatusChangeRequest
-                                                         leaveRequestStatusChangeRequest) {
+                                                     leaveRequestStatusChangeRequest) {
         leaveRequestService.updateStatus(leaveRequestStatusChangeRequest);
         return ResponseEntity.ok().build();
     }

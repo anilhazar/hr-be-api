@@ -84,7 +84,7 @@ class LeaveRequestRepositoryImpl implements LeaveRequestRepository {
         try (Connection connection = sql2o.open();
              Query query = connection.createQuery(LeaveRequestRepositoryConstants.FIND_BY_EMPLOYEE)) {
 
-            return  query
+            return query
                     .addParameter(LeaveRequestMapper.EMPLOYEE_ID.getField(), employeeId)
                     .setColumnMappings(LeaveRequestMapper.getColumnFieldMMappings())
                     .executeAndFetch(LeaveRequestEntity.class);
@@ -113,8 +113,8 @@ class LeaveRequestRepositoryImpl implements LeaveRequestRepository {
 
     @Override
     public List<LeaveRequestEntity> findLeavesByStatus(Long employeeId, RequestStatus requestStatus,
-                                                                 int pageSize,
-                                                                 int pageNumber) {
+                                                       int pageSize,
+                                                       int pageNumber) {
         try (Connection connection = sql2o.open();
              Query query = connection.createQuery(LeaveRequestRepositoryConstants.FIND_BY_STATUS)) {
             return query

@@ -10,20 +10,20 @@ public class PaginationRequest {
     @Positive
     private int pageNumber;
 
-    public void setPageSize(Integer pageSize) {
-        this.pageSize = pageSize;
-    }
-
-    public void setPageNumber(Integer pageNumber) {
-        this.pageNumber = pageNumber;
-    }
-
     public Integer getPageSize() {
         return pageSize;
     }
 
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
+    }
+
     public Integer getPageNumber() {
         return pageNumber;
+    }
+
+    public void setPageNumber(Integer pageNumber) {
+        this.pageNumber = pageNumber;
     }
 
 }

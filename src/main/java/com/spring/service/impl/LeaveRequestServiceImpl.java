@@ -68,7 +68,7 @@ class LeaveRequestServiceImpl implements LeaveRequestService {
     public List<LeaveRequestResponse> findOfTodayDate() {
         List<LeaveRequestEntity> leaveRequestEntities = leaveRequestRepository.findLeavesByTodayDate();
 
-        if(leaveRequestEntities.isEmpty()) {
+        if (leaveRequestEntities.isEmpty()) {
             throw new RuntimeException("No Leaves with Date of Today Found ");
         }
 
@@ -78,14 +78,14 @@ class LeaveRequestServiceImpl implements LeaveRequestService {
     @Override
     public List<LeaveRequestResponse> findAllByStatus(LeaveRequestGetByStatusRequest leaveRequestGetByStatusRequest) {
         List<LeaveRequestEntity> leaveRequestEntities = leaveRequestRepository.findLeavesByStatus(
-                        leaveRequestGetByStatusRequest.getFilter().getId(),
-                        leaveRequestGetByStatusRequest.getFilter().getStatus(),
-                        leaveRequestGetByStatusRequest.getPagination().getPageSize(),
-                        leaveRequestGetByStatusRequest.getPagination().getPageNumber());
+                leaveRequestGetByStatusRequest.getFilter().getId(),
+                leaveRequestGetByStatusRequest.getFilter().getStatus(),
+                leaveRequestGetByStatusRequest.getPagination().getPageSize(),
+                leaveRequestGetByStatusRequest.getPagination().getPageNumber());
 
-        if(leaveRequestEntities.isEmpty()){
+        if (leaveRequestEntities.isEmpty()) {
             throw new RuntimeException("No Leaves with status of: " + leaveRequestGetByStatusRequest.getFilter().getStatus() + " and "
-            + "id of: " + leaveRequestGetByStatusRequest.getFilter().getId() + " found");
+                    + "id of: " + leaveRequestGetByStatusRequest.getFilter().getId() + " found");
         }
 
         return LeaveRequestConverter.toResponse(leaveRequestEntities);
