@@ -39,26 +39,23 @@ class EmployeeEmailServiceImpl implements EmployeeEmailService {
     @Scheduled(cron = "0  9  * * *")
     public void sendBirthdayEmail() {
 
-        List<EmployeeEntity> employees = employeeRepository.findAllEmployee();
+        List<EmployeeEntity> employeeEntities = employeeRepository.findAllEmployee();
 
-        if (employees.isEmpty()) {
+        if (employeeEntities.isEmpty()) {
             throw new RuntimeException("No employee found");
         }
 
         LocalDate today = LocalDate.now();
-        LocalDate userBirthday;
-        boolean isSameDayAndMonth;
 
-        for (EmployeeEntity employee : employees) {
-            userBirthday = employee.getBirthday();
-            isSameDayAndMonth = today.getMonth() == userBirthday.getMonth() &&
-                    today.getDayOfMonth() == userBirthday.getDayOfMonth();
-            if (!isSameDayAndMonth) {
-                employees.remove(employee);
-            }
+        List<EmployeeEntity> birthdayEmployees = employeeEntities.stream()
+                .filter(employeeEntity -> today.getMonth() == employeeEntity.getBirthday().getMonth())
+                .filter(employeeEntity -> today.getDayOfMonth() == employeeEntity.getBirthday().getDayOfMonth())
+                .toList();
+        if (birthdayEmployees.isEmpty()) {
+            throw new RuntimeException("No employee have birthday today");
         }
 
-        employees.forEach(employeeEntity -> {
+        birthdayEmployees.forEach(employeeEntity -> {
             String subject = "\uD83C\uDF82 Happy Birthday! \uD83C\uDF89";
             String content = "Dear " + employeeEntity.getFirstName() + ",\n"
                     + "On this special day, may your heart be filled with joy, your path be lined with love, "
