@@ -2,11 +2,10 @@ package com.spring.service.impl;
 
 import com.spring.model.dto.converter.LeaveRequestConverter;
 import com.spring.model.dto.request.LeaveRequestCreateRequest;
+import com.spring.model.dto.request.LeaveRequestGetByStatusRequest;
 import com.spring.model.dto.request.LeaveRequestStatusChangeRequest;
-import com.spring.model.dto.request.PaginationRequest;
 import com.spring.model.dto.response.LeaveRequestResponse;
 import com.spring.model.entity.LeaveRequestEntity;
-import com.spring.model.enums.RequestStatus;
 import com.spring.repository.LeaveRequestRepository;
 import com.spring.service.LeaveRequestEmailService;
 import com.spring.service.LeaveRequestService;
@@ -68,12 +67,12 @@ class LeaveRequestServiceImpl implements LeaveRequestService {
     }
 
     @Override
-    public List<LeaveRequestResponse> findAllByStatus(Long id, RequestStatus requestStatus, PaginationRequest paginationRequest) {
+    public List<LeaveRequestResponse> findAllByStatus(LeaveRequestGetByStatusRequest leaveRequestGetByStatusRequest) {
         List<LeaveRequestEntity> leaveRequestEntities = leaveRequestRepository.findLeavesByStatus(
-                        id,
-                        requestStatus,
-                        paginationRequest.getPageSize(),
-                        paginationRequest.getPageNumber());
+                        leaveRequestGetByStatusRequest.getFilter().getId(),
+                        leaveRequestGetByStatusRequest.getFilter().getStatus(),
+                        leaveRequestGetByStatusRequest.getPagination().getPageSize(),
+                        leaveRequestGetByStatusRequest.getPagination().getPageNumber());
 
         return LeaveRequestConverter.toResponse(leaveRequestEntities);
 

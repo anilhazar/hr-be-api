@@ -28,4 +28,5 @@ public class LeaveRequestStatusChangeRequest {
     public RequestStatus getStatus() {
         return requestStatus;
     }
+
 }

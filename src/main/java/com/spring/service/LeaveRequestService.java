@@ -1,10 +1,9 @@
 package com.spring.service;
 
 import com.spring.model.dto.request.LeaveRequestCreateRequest;
+import com.spring.model.dto.request.LeaveRequestGetByStatusRequest;
 import com.spring.model.dto.request.LeaveRequestStatusChangeRequest;
-import com.spring.model.dto.request.PaginationRequest;
 import com.spring.model.dto.response.LeaveRequestResponse;
-import com.spring.model.enums.RequestStatus;
 
 import java.util.List;
 
@@ -17,6 +16,6 @@ public interface LeaveRequestService {
 
     List<LeaveRequestResponse> findOfTodayDate();
 
-    List<LeaveRequestResponse> findAllByStatus(Long id, RequestStatus requestStatus, PaginationRequest paginationRequest);
+    List<LeaveRequestResponse> findAllByStatus(LeaveRequestGetByStatusRequest leaveRequestGetByStatusRequest);
 
 }
