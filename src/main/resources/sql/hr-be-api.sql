@@ -2,6 +2,12 @@ CREATE DATABASE IF NOT EXISTS hr_be_api;
 
 USE hr_be_api;
 
+CREATE USER IF NOT EXISTS '${DB_USERNAME}'@'localhost' IDENTIFIED BY '${DB_PASSWORD}';
+
+GRANT ALL PRIVILEGES ON hr_be_api.* TO '${DB_USERNAME}'@'localhost';
+
+FLUSH PRIVILEGES;
+
 CREATE TABLE IF NOT EXISTS employee
 (
     id         BIGINT AUTO_INCREMENT PRIMARY KEY NOT NULL,
@@ -13,7 +19,7 @@ CREATE TABLE IF NOT EXISTS employee
     email      VARCHAR(48)                       NOT NULL,
     username   VARCHAR(24) DEFAULT NULL,
     password   VARCHAR(240) DEFAULT NULL
-    );
+);
 
 CREATE TABLE IF NOT EXISTS leave_request
 (
@@ -25,10 +31,10 @@ CREATE TABLE IF NOT EXISTS leave_request
     start_date   DATE                                            NOT NULL,
     end_date     DATE                                            NOT NULL,
     CONSTRAINT fk__employee_id__leave_request FOREIGN KEY (employee_id) REFERENCES employee (id)
-    );
+);
 
 INSERT INTO employee (first_name, last_name, gender, birthday, age, email)
 VALUES ('John', 'Doe', 'Male', '1996-08-17', 30, 'johndoe@example.com');
 
-INSERT INTO leave_request (employee_id, request_type, status, create_date, start_date, end_date)
+INSERT INTO leave_request (employee_id, type, status, create_date, start_date, end_date)
 VALUES (1, 'ANNUAL', 'PENDING', CURDATE(), '2024-06-01', '2024-06-10');

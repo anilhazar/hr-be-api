@@ -24,6 +24,7 @@ public enum EmployeeMapper {
     }
 
     private final String column;
+
     private final String field;
 
     EmployeeMapper(String column, String field) {
