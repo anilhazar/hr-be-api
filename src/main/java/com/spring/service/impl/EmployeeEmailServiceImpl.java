@@ -37,7 +37,7 @@ class EmployeeEmailServiceImpl implements EmployeeEmailService {
 
 
     @Scheduled(cron = "0 0 9 * * *")
-    public void sendBirthdayEmail() {
+    private void sendBirthdayEmail() {
 
         List<EmployeeEntity> employeeEntities = employeeRepository.findAll();
 
@@ -51,6 +51,7 @@ class EmployeeEmailServiceImpl implements EmployeeEmailService {
                 .filter(employeeEntity -> today.getMonth() == employeeEntity.getBirthday().getMonth())
                 .filter(employeeEntity -> today.getDayOfMonth() == employeeEntity.getBirthday().getDayOfMonth())
                 .toList();
+
         if (birthdayEmployees.isEmpty()) {
             throw new RuntimeException("No employee have birthday today");
         }

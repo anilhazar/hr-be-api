@@ -8,7 +8,7 @@ import java.time.LocalDate;
 public class LeaveRequestResponse {
 
     private final RequestType requestType;
-    private final RequestStatus requestStatus;
+    private final RequestStatus status;
     private final LocalDate createDate;
     private final LocalDate startDate;
     private final LocalDate endDate;

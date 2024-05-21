@@ -1,8 +1,8 @@
 db:
   driver-class-name: "com.mysql.cj.jdbc.Driver"
   url: "jdbc:mysql://localhost:3306/hr_be_api"
-  username: ${db.username:name}
-  password: ${db.password:password}
+  username: ${DB_USERNAME}
+  password: ${DB_PASSWORD}
 
 spring:
   mail:

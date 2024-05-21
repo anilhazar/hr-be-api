@@ -22,7 +22,7 @@ public class EmployeeCreateRequest {
     private LocalDate birthday;
 
     @Positive
-    private int age;
+    private Integer age;
 
     @NotBlank
     @Email
