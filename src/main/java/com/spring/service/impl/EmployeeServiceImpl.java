@@ -78,6 +78,14 @@ class EmployeeServiceImpl implements EmployeeService {
         EmployeeEntity employeeEntity = employeeRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("No Employee found with id of " + id));
 
+        boolean isCorrectPassword = passwordEncoder.matches(
+                employeePasswordChangeRequest.getOldPassword(),
+                employeeEntity.getPassword());
+
+        if (!isCorrectPassword) {
+            throw new RuntimeException("Wrong password");
+        }
+
         String generatedPassword = employeePasswordChangeRequest.getNewPassword();
         String hashedPassword = passwordEncoder.encode(generatedPassword);
         employeeEntity.setPassword(hashedPassword);
