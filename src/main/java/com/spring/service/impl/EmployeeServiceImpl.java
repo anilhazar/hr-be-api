@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 class EmployeeServiceImpl implements EmployeeService {
@@ -24,16 +25,19 @@ class EmployeeServiceImpl implements EmployeeService {
 
     private final PasswordEncoder passwordEncoder;
 
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository, EmployeeEmailService employeeEmailService, PasswordEncoder passwordEncoder) {
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository,
+                               EmployeeEmailService employeeEmailService,
+                               PasswordEncoder passwordEncoder) {
         this.employeeRepository = employeeRepository;
         this.employeeEmailService = employeeEmailService;
         this.passwordEncoder = passwordEncoder;
+
     }
 
     @Override
-    public List<EmployeeResponse> findAllEmployee() {
+    public List<EmployeeResponse> findAll() {
 
-        List<EmployeeEntity> employeeEntities = employeeRepository.findAllEmployee();
+        List<EmployeeEntity> employeeEntities = employeeRepository.findAll();
 
         if (employeeEntities.isEmpty()) {
             throw new RuntimeException("No employee found");
@@ -43,9 +47,14 @@ class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void createEmployee(EmployeeCreateRequest employeeCreateRequest) {
+    public void create(EmployeeCreateRequest employeeCreateRequest) {
         EmployeeEntity employeeEntity = EmployeeConverter.toEntity(employeeCreateRequest);
 
+        Optional<EmployeeEntity> employeeWithSameEmail = employeeRepository.findByEmail(
+                employeeCreateRequest.getEmail());
+        if (employeeWithSameEmail.isPresent()) {
+            throw new RuntimeException("Employee with same email already exists");
+        }
 
         String generatedPassword = PasswordGenerator.generate();
         String encodedPassword = passwordEncoder.encode(generatedPassword);
@@ -65,8 +74,8 @@ class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void changeEmployeePassword(Long id, EmployeePasswordChangeRequest employeePasswordChangeRequest) {
-        EmployeeEntity employeeEntity = employeeRepository.findEmployeeById(id)
+    public void changePassword(Long id, EmployeePasswordChangeRequest employeePasswordChangeRequest) {
+        EmployeeEntity employeeEntity = employeeRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("No Employee found with id of " + id));
 
         String generatedPassword = employeePasswordChangeRequest.getNewPassword();

@@ -70,7 +70,7 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
     }
 
     @Override
-    public List<EmployeeEntity> findAllEmployee() {
+    public List<EmployeeEntity> findAll() {
 
         try (Connection connection = sql2o.open();
              Query query = connection.createQuery(EmployeeRepositoryConstants.FIND_ALL)) {
@@ -84,7 +84,7 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
     }
 
     @Override
-    public Optional<EmployeeEntity> findEmployeeById(Long id) {
+    public Optional<EmployeeEntity> findById(Long id) {
 
         try (Connection connection = sql2o.open();
              Query query = connection.createQuery(EmployeeRepositoryConstants.FIND_BY_ID)) {
@@ -101,7 +101,7 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
     }
 
     @Override
-    public Optional<EmployeeEntity> findEmployeeByUsername(String username) {
+    public Optional<EmployeeEntity> findByUsername(String username) {
 
         try (Connection connection = sql2o.open();
              Query query = connection.createQuery(EmployeeRepositoryConstants.FIND_BY_USERNAME)) {
@@ -113,6 +113,23 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
         } catch (Sql2oException e) {
             e.printStackTrace();
             return Optional.empty();
+        }
+    }
+
+    @Override
+    public Optional<EmployeeEntity> findByEmail(String email) {
+
+        try (Connection connection = sql2o.open();
+             Query query = connection.createQuery(EmployeeRepositoryConstants.FIND_BY_EMAIL)) {
+
+            return Optional.ofNullable(query
+                    .addParameter(EmployeeMapper.EMAIL.getField(), email)
+                    .setColumnMappings(EmployeeMapper.getColumnFieldMappings())
+                    .executeAndFetchFirst(EmployeeEntity.class));
+        } catch (Sql2oException e) {
+            e.printStackTrace();
+            return Optional.empty();
+
         }
     }
 

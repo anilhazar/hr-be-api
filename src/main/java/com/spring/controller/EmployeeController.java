@@ -25,20 +25,20 @@ public class EmployeeController {
 
     public ResponseEntity<List<EmployeeResponse>> getAllEmployees() {
 
-        return ResponseEntity.ok(employeeService.findAllEmployee());
+        return ResponseEntity.ok(employeeService.findAll());
     }
 
     @PostMapping("/employee")
     public ResponseEntity<Void> createEmployee(
-            @Valid @RequestBody final EmployeeCreateRequest employeeCreateRequest) {
-        employeeService.createEmployee(employeeCreateRequest);
+            @RequestBody @Valid final EmployeeCreateRequest employeeCreateRequest) {
+        employeeService.create(employeeCreateRequest);
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/employee/{id}/password")
     public ResponseEntity<Void> changePassword(@PathVariable final Long id,
                                                @Valid @RequestBody final EmployeePasswordChangeRequest employeePasswordChangeRequest) {
-        employeeService.changeEmployeePassword(id, employeePasswordChangeRequest);
+        employeeService.changePassword(id, employeePasswordChangeRequest);
         return ResponseEntity.ok().build();
     }
 

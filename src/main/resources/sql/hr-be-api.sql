@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS employee
     gender     VARCHAR(24)                       NOT NULL,
     birthday   DATE                              NOT NULL,
     age        INT                               NOT NULL,
-    email      VARCHAR(48)                       NOT NULL,
+    email      VARCHAR(48) UNIQUE                NOT NULL,
     username   VARCHAR(24) DEFAULT NULL,
     password   VARCHAR(240) DEFAULT NULL
     );

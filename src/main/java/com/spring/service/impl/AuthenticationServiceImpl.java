@@ -21,7 +21,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public void login(AuthenticationRequest authenticationRequest) {
-        EmployeeEntity employeeEntity = employeeRepository.findEmployeeByUsername(authenticationRequest.getUsername())
+        EmployeeEntity employeeEntity = employeeRepository.findByUsername(authenticationRequest.getUsername())
                 .orElseThrow(() -> new RuntimeException("Incorrect Username or Password"));
 
         boolean isCorrect = passwordEncoder.matches(authenticationRequest.getPassword(), employeeEntity.getPassword());

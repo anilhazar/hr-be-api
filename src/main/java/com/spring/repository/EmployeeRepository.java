@@ -6,13 +6,16 @@ import java.util.List;
 import java.util.Optional;
 
 public interface EmployeeRepository {
-    List<EmployeeEntity> findAllEmployee();
+    List<EmployeeEntity> findAll();
 
     void save(EmployeeEntity employeeEntity);
 
     void update(EmployeeEntity employeeEntity);
 
-    Optional<EmployeeEntity> findEmployeeById(Long id);
+    Optional<EmployeeEntity> findById(Long id);
 
-    Optional<EmployeeEntity> findEmployeeByUsername(String username);
+    Optional<EmployeeEntity> findByUsername(String username);
+
+    Optional<EmployeeEntity> findByEmail(String email);
+
 }

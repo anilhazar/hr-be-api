@@ -39,7 +39,7 @@ class EmployeeEmailServiceImpl implements EmployeeEmailService {
     @Scheduled(cron = "0 0 9 * * *")
     public void sendBirthdayEmail() {
 
-        List<EmployeeEntity> employeeEntities = employeeRepository.findAllEmployee();
+        List<EmployeeEntity> employeeEntities = employeeRepository.findAll();
 
         if (employeeEntities.isEmpty()) {
             throw new RuntimeException("No employee found");

@@ -96,7 +96,7 @@ class LeaveRequestRepositoryImpl implements LeaveRequestRepository {
     }
 
     @Override
-    public List<LeaveRequestEntity> findLeavesByTodayDate() {
+    public List<LeaveRequestEntity> findByTodayDate() {
 
         try (Connection connection = sql2o.open();
              Query query = connection.createQuery(LeaveRequestRepositoryConstants.FIND_BY_DATE)) {
@@ -112,9 +112,9 @@ class LeaveRequestRepositoryImpl implements LeaveRequestRepository {
     }
 
     @Override
-    public List<LeaveRequestEntity> findLeavesByStatus(Long employeeId, RequestStatus requestStatus,
-                                                       int pageSize,
-                                                       int pageNumber) {
+    public List<LeaveRequestEntity> findByStatus(Long employeeId, RequestStatus requestStatus,
+                                                 int pageSize,
+                                                 int pageNumber) {
         try (Connection connection = sql2o.open();
              Query query = connection.createQuery(LeaveRequestRepositoryConstants.FIND_BY_STATUS)) {
             return query
