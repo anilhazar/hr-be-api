@@ -62,7 +62,7 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
                     .addParameter(EmployeeMapper.EMAIL.getField(), employeeEntity.getEmail())
                     .addParameter(EmployeeMapper.USERNAME.getField(), employeeEntity.getUsername())
                     .addParameter(EmployeeMapper.PASSWORD.getField(), employeeEntity.getPassword())
-                    .executeAndFetchFirst(EmployeeEntity.class);
+                    .executeUpdate();
         } catch (Sql2oException e) {
             e.printStackTrace();
         }

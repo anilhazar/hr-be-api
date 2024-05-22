@@ -13,9 +13,9 @@ public class LeaveRequestResponse {
     private final LocalDate startDate;
     private final LocalDate endDate;
 
-    public LeaveRequestResponse(RequestType requestType, RequestStatus requestStatus, LocalDate createDate, LocalDate startDate, LocalDate endDate) {
+    public LeaveRequestResponse(RequestType requestType, RequestStatus status, LocalDate createDate, LocalDate startDate, LocalDate endDate) {
         this.requestType = requestType;
-        this.requestStatus = requestStatus;
+        this.status = status;
         this.createDate = createDate;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -26,7 +26,7 @@ public class LeaveRequestResponse {
     }
 
     public RequestStatus getStatus() {
-        return requestStatus;
+        return status;
     }
 
     public LocalDate getCreateDate() {

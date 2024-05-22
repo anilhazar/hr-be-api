@@ -22,16 +22,16 @@ class EmployeeEmailServiceImpl implements EmployeeEmailService {
     }
 
     @Override
-    public void sendUsernameAndPassword(EmployeeEntity employeeEntity) {
+    public void sendUsernameAndPassword(String firstName, String username, String password, String email) {
 
         String subject = "Your Account Information";
-        String content = "Dear " + employeeEntity.getfirstName() + ",\n\n"
+        String content = "Dear " + firstName + ",\n\n"
                 + "We are pleased to inform you that your account has been created successfully. Please find your login credentials below:\n\n"
-                + "Username: " + employeeEntity.getUsername() + "\n"
-                + "Temporary Password: " + employeeEntity.getPassword() + "\n\n"
+                + "Username: " + username + "\n"
+                + "Temporary Password: " + password + "\n\n"
                 + "Best regards,\n";
 
-        emailService.send(employeeEntity.getEmail(), subject, content);
+        emailService.send(email, subject, content);
 
     }
 
@@ -69,5 +69,6 @@ class EmployeeEmailServiceImpl implements EmployeeEmailService {
             emailService.send(employeeEntity.getEmail(), subject, content);
         });
     }
+
 
 }

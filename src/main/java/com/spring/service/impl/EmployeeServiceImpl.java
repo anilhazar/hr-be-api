@@ -63,7 +63,11 @@ class EmployeeServiceImpl implements EmployeeService {
         employeeEntity.setUsername(generateUsername(employeeEntity));
 
         employeeRepository.save(employeeEntity);
-        new Thread(() -> employeeEmailService.sendUsernameAndPassword(employeeEntity)).start();
+        new Thread(() -> employeeEmailService.sendUsernameAndPassword(
+                employeeEntity.getFirstName(),
+                employeeEntity.getUsername(),
+                generatedPassword,
+                employeeEntity.getEmail())).start();
     }
 
     private String generateUsername(EmployeeEntity employeeEntity) {
@@ -86,8 +90,8 @@ class EmployeeServiceImpl implements EmployeeService {
             throw new RuntimeException("Wrong password");
         }
 
-        String generatedPassword = employeePasswordChangeRequest.getNewPassword();
-        String hashedPassword = passwordEncoder.encode(generatedPassword);
+        String newPassword = employeePasswordChangeRequest.getNewPassword();
+        String hashedPassword = passwordEncoder.encode(newPassword);
         employeeEntity.setPassword(hashedPassword);
 
         employeeRepository.update(employeeEntity);

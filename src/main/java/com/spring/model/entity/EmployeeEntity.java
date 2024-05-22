@@ -4,16 +4,18 @@ import java.time.LocalDate;
 
 public class EmployeeEntity {
 
-    private final String firstName;
-    private final String lastName;
-    private final String gender;
-    private final LocalDate birthday;
-    private final int age;
-    private final String email;
+    private String firstName;
+    private String lastName;
+    private String gender;
+    private LocalDate birthday;
+    private int age;
+    private String email;
     private Long id;
     private String username;
     private String password;
 
+    public EmployeeEntity() {
+    }
 
     public EmployeeEntity(String firstName, String lastName, String gender,
                           LocalDate birthday, int age, String email) {
@@ -24,6 +26,7 @@ public class EmployeeEntity {
         this.age = age;
         this.email = email;
     }
+
 
     public Long getId() {
         return id;
@@ -77,5 +80,7 @@ public class EmployeeEntity {
     public LocalDate getBirthday() {
         return birthday;
     }
+
+
 
 }

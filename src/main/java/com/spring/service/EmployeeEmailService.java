@@ -1,7 +1,6 @@
 package com.spring.service;
 
-import com.spring.model.entity.EmployeeEntity;
 
 public interface EmployeeEmailService {
-    void sendUsernameAndPassword(EmployeeEntity employeeEntity);
+    void sendUsernameAndPassword(String firstName, String username, String password, String email);
 }

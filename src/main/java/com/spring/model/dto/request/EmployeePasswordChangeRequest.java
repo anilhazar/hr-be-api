@@ -20,5 +20,8 @@ public class EmployeePasswordChangeRequest {
 
     public String getOldPassword() {return oldPassword;}
 
-    public void setOldPassword(String oldPassword) {}
+    public void setOldPassword(String oldPassword) {
+        this.oldPassword = oldPassword;
+
+    }
 }
