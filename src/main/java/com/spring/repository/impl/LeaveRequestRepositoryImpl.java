@@ -1,8 +1,9 @@
 package com.spring.repository.impl;
 
 import com.spring.model.entity.LeaveRequestEntity;
-import com.spring.model.enums.RequestStatus;
+import com.spring.model.enums.Status;
 import com.spring.repository.LeaveRequestRepository;
+import com.spring.repository.mapping.EmployeeMapper;
 import com.spring.repository.mapping.LeaveRequestMapper;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Connection;
@@ -28,12 +29,13 @@ class LeaveRequestRepositoryImpl implements LeaveRequestRepository {
         try (Connection connection = sql2o.open();
              Query query = connection.createQuery(LeaveRequestRepositoryConstants.SAVE)) {
             query
-                    .addParameter(LeaveRequestMapper.REQUEST_TYPE.getField(), leaveRequestEntity.getRequestType())
+                    .addParameter(LeaveRequestMapper.TYPE.getField(), leaveRequestEntity.gettype())
                     .addParameter(LeaveRequestMapper.STATUS.getField(), leaveRequestEntity.getStatus())
                     .addParameter(LeaveRequestMapper.CREATE_DATE.getField(), leaveRequestEntity.getCreateDate())
                     .addParameter(LeaveRequestMapper.START_DATE.getField(), leaveRequestEntity.getStartDate())
                     .addParameter(LeaveRequestMapper.END_DATE.getField(), leaveRequestEntity.getEndDate())
                     .addParameter(LeaveRequestMapper.EMPLOYEE_ID.getField(), leaveRequestEntity.getEmployeeId())
+                    .setColumnMappings(EmployeeMapper.getColumnFieldMappings())
                     .executeUpdate();
 
         } catch (Sql2oException e) {
@@ -47,12 +49,13 @@ class LeaveRequestRepositoryImpl implements LeaveRequestRepository {
         try (Connection connection = sql2o.open();
              Query query = connection.createQuery(LeaveRequestRepositoryConstants.UPDATE_BY_ID)) {
             query
-                    .addParameter(LeaveRequestMapper.REQUEST_TYPE.getField(), leaveRequestEntity.getRequestType())
+                    .addParameter(LeaveRequestMapper.TYPE.getField(), leaveRequestEntity.gettype())
                     .addParameter(LeaveRequestMapper.STATUS.getField(), leaveRequestEntity.getStatus())
                     .addParameter(LeaveRequestMapper.CREATE_DATE.getField(), leaveRequestEntity.getCreateDate())
                     .addParameter(LeaveRequestMapper.START_DATE.getField(), leaveRequestEntity.getStartDate())
                     .addParameter(LeaveRequestMapper.END_DATE.getField(), leaveRequestEntity.getEndDate())
                     .addParameter(LeaveRequestMapper.EMPLOYEE_ID.getField(), leaveRequestEntity.getEmployeeId())
+                    .setColumnMappings(EmployeeMapper.getColumnFieldMappings())
                     .executeAndFetchFirst(LeaveRequestEntity.class);
 
         } catch (Sql2oException e) {
@@ -112,14 +115,14 @@ class LeaveRequestRepositoryImpl implements LeaveRequestRepository {
     }
 
     @Override
-    public List<LeaveRequestEntity> findByStatus(Long employeeId, RequestStatus requestStatus,
+    public List<LeaveRequestEntity> findByStatus(Long employeeId, Status status,
                                                  int pageSize,
                                                  int pageNumber) {
         try (Connection connection = sql2o.open();
              Query query = connection.createQuery(LeaveRequestRepositoryConstants.FIND_BY_STATUS)) {
             return query
                     .addParameter(LeaveRequestMapper.EMPLOYEE_ID.getField(), employeeId)
-                    .addParameter(LeaveRequestMapper.STATUS.getField(), requestStatus)
+                    .addParameter(LeaveRequestMapper.STATUS.getField(), status)
                     .addParameter("offset", (pageNumber - 1) * pageSize)
                     .addParameter("limit", pageSize)
                     .setColumnMappings(LeaveRequestMapper.getColumnFieldMMappings())

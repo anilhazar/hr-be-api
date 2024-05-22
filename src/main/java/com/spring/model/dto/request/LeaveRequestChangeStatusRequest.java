@@ -4,30 +4,9 @@ import com.spring.model.enums.Status;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
-public class LeaveRequestGetByStatusRequest {
-    @NotNull
-    private Filter filter;
 
-    @NotNull
-    private PaginationRequest paginationRequest;
+    public class LeaveRequestChangeStatusRequest {
 
-    public @NotNull PaginationRequest getPagination() {
-        return paginationRequest;
-    }
-
-    public void setPagination(@NotNull PaginationRequest paginationRequest) {
-        this.paginationRequest = paginationRequest;
-    }
-
-    public Filter getFilter() {
-        return filter;
-    }
-
-    public void setFilter(Filter filter) {
-        this.filter = filter;
-    }
-
-    public static class Filter {
         @NotNull
         @Positive
         private Long id;
@@ -50,5 +29,6 @@ public class LeaveRequestGetByStatusRequest {
         public void setStatus(Status status) {
             this.status = status;
         }
+
     }
-}
+

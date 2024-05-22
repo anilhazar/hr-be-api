@@ -18,7 +18,7 @@ class LeaveRequestEmailServiceImpl implements LeaveRequestEmailService {
     }
 
     @Override
-    public void sendLeaveRequestStatusUpdate(LeaveRequestEntity leaveRequestEntity) {
+    public void sendLeaveStatusUpdate(LeaveRequestEntity leaveRequestEntity) {
         EmployeeEntity employeeEntity = employeeRepository.findById(leaveRequestEntity.getEmployeeId())
                 .orElseThrow(() -> new RuntimeException("No employee found with id of " + leaveRequestEntity.getId()));
         String email = employeeEntity.getEmail();

@@ -1,7 +1,7 @@
 package com.spring.repository;
 
 import com.spring.model.entity.LeaveRequestEntity;
-import com.spring.model.enums.RequestStatus;
+import com.spring.model.enums.Status;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,5 +18,5 @@ public interface LeaveRequestRepository {
 
     List<LeaveRequestEntity> findByTodayDate();
 
-    List<LeaveRequestEntity> findByStatus(Long id, RequestStatus requestStatus, int pageSize, int pageNumber);
+    List<LeaveRequestEntity> findByStatus(Long id, Status status, int pageSize, int pageNumber);
 }

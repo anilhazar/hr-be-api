@@ -4,9 +4,9 @@ final class LeaveRequestRepositoryConstants {
 
     static final String SAVE = "INSERT INTO leave_request "
             + "(request_type, status, create_date, start_date, end_date, employee_id)"
-            + "VALUES (:requestType, :status, :createDate, :startDate, :endDate, :employeeId)";
+            + "VALUES (:type, :status, :createDate, :startDate, :endDate, :employeeId)";
     static final String UPDATE_BY_ID = "UPDATE leave_request "
-            + "SET id = :id, request_type = :requestType, status = :status, create_date = :createDate, "
+            + "SET id = :id, request_type = :type, status = :status, create_date = :createDate, "
             + "start_date = :startDate, end_date = :endDate, employee_id = :employeeId "
             + "WHERE id = :id";
     static final String FIND_BY_ID = "SELECT id, request_type, status, create_date, start_date, end_date, employee_id "

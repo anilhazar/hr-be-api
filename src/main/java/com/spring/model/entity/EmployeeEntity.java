@@ -81,6 +81,9 @@ public class EmployeeEntity {
         return birthday;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
 
 }

@@ -75,7 +75,9 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
         try (Connection connection = sql2o.open();
              Query query = connection.createQuery(EmployeeRepositoryConstants.FIND_ALL)) {
 
-            return query.executeAndFetch(EmployeeEntity.class);
+        return  query
+                .setColumnMappings(EmployeeMapper.getColumnFieldMappings())
+                .executeAndFetch(EmployeeEntity.class);
         } catch (Sql2oException sql2oException) {
             sql2oException.printStackTrace();
             return List.of();

@@ -5,7 +5,7 @@ import java.util.Map;
 
 public enum LeaveRequestMapper {
     ID("id", "id"),
-    REQUEST_TYPE("request_type", "requestType"),
+    TYPE("type", "type"),
     STATUS("status", "status"),
     CREATE_DATE("create_Date", "createDate"),
     START_DATE("start_date", "startDate"),

@@ -1,9 +1,9 @@
 package com.spring.service.impl;
 
 import com.spring.model.dto.converter.LeaveRequestConverter;
+import com.spring.model.dto.request.LeaveRequestChangeStatusRequest;
 import com.spring.model.dto.request.LeaveRequestCreateRequest;
 import com.spring.model.dto.request.LeaveRequestGetByStatusRequest;
-import com.spring.model.dto.request.LeaveRequestStatusChangeRequest;
 import com.spring.model.dto.response.LeaveRequestResponse;
 import com.spring.model.entity.LeaveRequestEntity;
 import com.spring.repository.LeaveRequestRepository;
@@ -45,22 +45,22 @@ class LeaveRequestServiceImpl implements LeaveRequestService {
 
 
     @Override
-    public void updateStatus(LeaveRequestStatusChangeRequest leaveRequestStatusChangeRequest) {
+    public void updateStatus(LeaveRequestChangeStatusRequest leaveStatusChangeRequest) {
 
-        LeaveRequestEntity leaveRequestEntity = leaveRequestRepository.findById(leaveRequestStatusChangeRequest.getId())
+        LeaveRequestEntity leaveRequestEntity = leaveRequestRepository.findById(leaveStatusChangeRequest.getId())
                 .orElseThrow(() -> new RuntimeException("No Leaves Found with related Id of "
-                        + leaveRequestStatusChangeRequest.getId()
-                        + "and RequestStatus of "
-                        + leaveRequestStatusChangeRequest.getStatus()));
+                        + leaveStatusChangeRequest.getId()
+                        + "and status of "
+                        + leaveStatusChangeRequest.getStatus()));
 
-        if (leaveRequestEntity.getStatus().equals(leaveRequestStatusChangeRequest.getStatus())) {
-            throw new RuntimeException("Equal RequestStatus Values Detected, RequestStatus Update Attempt Failed");
+        if (leaveRequestEntity.getStatus().equals(leaveStatusChangeRequest.getStatus())) {
+            throw new RuntimeException("Equal status Values Detected, status Update Attempt Failed");
         }
-        leaveRequestEntity.setStatus(leaveRequestStatusChangeRequest.getStatus());
+        leaveRequestEntity.setStatus(leaveStatusChangeRequest.getStatus());
 
         leaveRequestRepository.update(leaveRequestEntity);
 
-        new Thread(() -> leaveRequestEmailService.sendLeaveRequestStatusUpdate(leaveRequestEntity)).start();
+        new Thread(() -> leaveRequestEmailService.sendLeaveStatusUpdate(leaveRequestEntity)).start();
 
     }
 

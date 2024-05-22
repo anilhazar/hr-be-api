@@ -1,6 +1,6 @@
 package com.spring.model.enums;
 
-public enum RequestStatus {
+public enum Status {
 
     APPROVED,
     REJECTED,

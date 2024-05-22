@@ -1,8 +1,8 @@
 package com.spring.controller;
 
+import com.spring.model.dto.request.LeaveRequestChangeStatusRequest;
 import com.spring.model.dto.request.LeaveRequestCreateRequest;
 import com.spring.model.dto.request.LeaveRequestGetByStatusRequest;
-import com.spring.model.dto.request.LeaveRequestStatusChangeRequest;
 import com.spring.model.dto.response.LeaveRequestResponse;
 import com.spring.service.LeaveRequestService;
 import jakarta.validation.Valid;
@@ -36,9 +36,9 @@ public class LeaveRequestController {
     }
 
     @PutMapping("/leave-request/status")
-    public ResponseEntity<Void> updateStatus(@Valid @RequestBody LeaveRequestStatusChangeRequest
-                                                     leaveRequestStatusChangeRequest) {
-        leaveRequestService.updateStatus(leaveRequestStatusChangeRequest);
+    public ResponseEntity<Void> updateStatus(@Valid @RequestBody LeaveRequestChangeStatusRequest
+                                                     leaveStatusChangeRequest) {
+        leaveRequestService.updateStatus(leaveStatusChangeRequest);
         return ResponseEntity.ok().build();
     }
 
