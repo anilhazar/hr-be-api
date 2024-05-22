@@ -1,8 +1,7 @@
-package com.spring.model.dto.request.leaverequest;
+package com.spring.model.dto.request;
 
-import com.spring.model.enums.RequestType;
+import com.spring.model.enums.Type;
 import jakarta.validation.constraints.FutureOrPresent;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
@@ -10,44 +9,48 @@ import java.time.LocalDate;
 
 
 public class LeaveRequestCreateRequest {
-    @NotBlank
-    private RequestType requestType;
-    @NotBlank
+
+    @NotNull
+    private Type type;
+
+    @NotNull
     @FutureOrPresent
     private LocalDate startDate;
-    @NotBlank
+
+    @NotNull
     @FutureOrPresent
     private LocalDate endDate;
+
     @NotNull
     @Positive
     private Long employeeId;
 
-    public RequestType getRequestType() {
-        return requestType;
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
     }
 
     public LocalDate getStartDate() {
         return startDate;
     }
 
-    public LocalDate getEndDate() {
-        return endDate;
-    }
-
-    public Long getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setRequestType(RequestType requestType) {
-        this.requestType = requestType;
-    }
-
     public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
+    }
+
+    public Long getEmployeeId() {
+        return employeeId;
     }
 
     public void setEmployeeId(Long employeeId) {

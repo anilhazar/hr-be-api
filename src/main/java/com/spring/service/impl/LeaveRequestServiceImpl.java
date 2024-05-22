@@ -1,14 +1,16 @@
 package com.spring.service.impl;
 
 import com.spring.model.dto.converter.LeaveRequestConverter;
-import com.spring.model.dto.request.leaverequest.LeaveRequestCreateRequest;
+import com.spring.model.dto.request.LeaveRequestChangeStatusRequest;
+import com.spring.model.dto.request.LeaveRequestCreateRequest;
+import com.spring.model.dto.request.LeaveRequestGetByStatusRequest;
 import com.spring.model.dto.response.LeaveRequestResponse;
 import com.spring.model.entity.LeaveRequestEntity;
 import com.spring.repository.LeaveRequestRepository;
+import com.spring.service.LeaveRequestEmailService;
 import com.spring.service.LeaveRequestService;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -16,27 +18,80 @@ class LeaveRequestServiceImpl implements LeaveRequestService {
 
     private final LeaveRequestRepository leaveRequestRepository;
 
-    public LeaveRequestServiceImpl(LeaveRequestRepository leaveRequestRepository) {
+    private final LeaveRequestEmailService leaveRequestEmailService;
+
+    public LeaveRequestServiceImpl(LeaveRequestRepository leaveRequestRepository, LeaveRequestEmailService leaveRequestEmailService) {
         this.leaveRequestRepository = leaveRequestRepository;
+        this.leaveRequestEmailService = leaveRequestEmailService;
     }
 
     @Override
-    public void createLeaveRequest(LeaveRequestCreateRequest leaveRequestCreateRequest) {
+    public void create(LeaveRequestCreateRequest leaveRequestCreateRequest) {
         LeaveRequestEntity leaveRequestEntity = LeaveRequestConverter.toEntity(leaveRequestCreateRequest);
-        assignCurrentDate(leaveRequestEntity);
         leaveRequestRepository.save(leaveRequestEntity);
     }
 
-    private void assignCurrentDate(LeaveRequestEntity leaveRequestEntity) {
-        leaveRequestEntity.setCreateDate(LocalDate.now());
+
+    @Override
+    public List<LeaveRequestResponse> findByEmployeeId(Long id) {
+
+        List<LeaveRequestEntity> leaveRequestEntityList = leaveRequestRepository.findAllById(id);
+
+        if (leaveRequestEntityList.isEmpty()) {
+            throw new RuntimeException("No leave request found with id: " + id);
+        }
+        return LeaveRequestConverter.toResponse(leaveRequestEntityList);
+    }
+
+
+    @Override
+    public void updateStatus(LeaveRequestChangeStatusRequest leaveStatusChangeRequest) {
+
+        LeaveRequestEntity leaveRequestEntity = leaveRequestRepository.findById(leaveStatusChangeRequest.getId())
+                .orElseThrow(() -> new RuntimeException("No Leaves Found with related Id of "
+                        + leaveStatusChangeRequest.getId()
+                        + "and status of "
+                        + leaveStatusChangeRequest.getStatus()));
+
+        if (leaveRequestEntity.getStatus().equals(leaveStatusChangeRequest.getStatus())) {
+            throw new RuntimeException("Equal status Values Detected, status Update Attempt Failed");
+        }
+        leaveRequestEntity.setStatus(leaveStatusChangeRequest.getStatus());
+
+        leaveRequestRepository.update(leaveRequestEntity);
+
+        new Thread(() -> leaveRequestEmailService.sendLeaveStatusUpdate(leaveRequestEntity)).start();
+
     }
 
     @Override
-    public List<LeaveRequestResponse> listLeaveRequests(Long id) {
+    public List<LeaveRequestResponse> findOfTodayDate() {
+        List<LeaveRequestEntity> leaveRequestEntities = leaveRequestRepository.findByTodayDate();
 
-        List<LeaveRequestEntity> leaveRequestEntityList = leaveRequestRepository.list(id);
-        return LeaveRequestConverter.toResponse(leaveRequestEntityList);
+        if (leaveRequestEntities.isEmpty()) {
+            throw new RuntimeException("No Leaves with Date of Today Found ");
+        }
+
+        return LeaveRequestConverter.toResponse(leaveRequestEntities);
     }
+
+    @Override
+    public List<LeaveRequestResponse> findAllByStatus(LeaveRequestGetByStatusRequest leaveRequestGetByStatusRequest) {
+        List<LeaveRequestEntity> leaveRequestEntities = leaveRequestRepository.findByStatus(
+                leaveRequestGetByStatusRequest.getFilter().getId(),
+                leaveRequestGetByStatusRequest.getFilter().getStatus(),
+                leaveRequestGetByStatusRequest.getPagination().getPageSize(),
+                leaveRequestGetByStatusRequest.getPagination().getPageNumber());
+
+        if (leaveRequestEntities.isEmpty()) {
+            throw new RuntimeException("No Leaves with status of: " + leaveRequestGetByStatusRequest.getFilter().getStatus() + " and "
+                    + "id of: " + leaveRequestGetByStatusRequest.getFilter().getId() + " found");
+        }
+
+        return LeaveRequestConverter.toResponse(leaveRequestEntities);
+
+    }
+
 
 
 }

@@ -1,16 +1,22 @@
 package com.spring.model.dto.converter;
 
-import com.spring.model.dto.request.leaverequest.LeaveRequestCreateRequest;
+import com.spring.model.dto.request.LeaveRequestCreateRequest;
 import com.spring.model.dto.response.LeaveRequestResponse;
 import com.spring.model.entity.LeaveRequestEntity;
 import com.spring.model.enums.Status;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
-public class LeaveRequestConverter {
+public final class LeaveRequestConverter {
+
+    private LeaveRequestConverter() {
+    }
+
     public static LeaveRequestEntity toEntity(LeaveRequestCreateRequest leaveRequestCreateRequest) {
         return new LeaveRequestEntity(
-                leaveRequestCreateRequest.getRequestType(),
+                leaveRequestCreateRequest.getType(),
                 Status.PENDING,
                 leaveRequestCreateRequest.getStartDate(),
                 leaveRequestCreateRequest.getEndDate(),
@@ -20,17 +26,17 @@ public class LeaveRequestConverter {
 
     public static LeaveRequestResponse toResponse(LeaveRequestEntity leaveRequestEntity) {
         return new LeaveRequestResponse(
-                leaveRequestEntity.getRequestType(),
+                leaveRequestEntity.gettype(),
                 leaveRequestEntity.getStatus(),
-                leaveRequestEntity.getCreateDate(),
+                LocalDate.now(),
                 leaveRequestEntity.getStartDate(),
                 leaveRequestEntity.getEndDate()
         );
     }
 
-    public static List<LeaveRequestResponse> toResponse(List<LeaveRequestEntity> leaveRequestEntityList) {
-        List<LeaveRequestResponse> leaveRequestResponses = List.of();
-        for (LeaveRequestEntity leaveRequestEntity : leaveRequestEntityList) {
+    public static List<LeaveRequestResponse> toResponse(List<LeaveRequestEntity> leaveRequestEntities) {
+        List<LeaveRequestResponse> leaveRequestResponses = new ArrayList<>();
+        for (LeaveRequestEntity leaveRequestEntity : leaveRequestEntities) {
             leaveRequestResponses.add(toResponse(leaveRequestEntity));
         }
         return leaveRequestResponses;

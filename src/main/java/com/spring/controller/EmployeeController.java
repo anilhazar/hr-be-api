@@ -1,9 +1,10 @@
 package com.spring.controller;
 
-import com.spring.model.dto.request.employee.EmployeeCreateRequest;
-import com.spring.model.dto.request.employee.EmployeePasswordChangeRequest;
+import com.spring.model.dto.request.EmployeeCreateRequest;
+import com.spring.model.dto.request.EmployeePasswordChangeRequest;
 import com.spring.model.dto.response.EmployeeResponse;
 import com.spring.service.EmployeeService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +16,7 @@ public class EmployeeController {
 
     private final EmployeeService employeeService;
 
-    public EmployeeController(final EmployeeService  employeeService) {
+    public EmployeeController(final EmployeeService employeeService) {
 
         this.employeeService = employeeService;
     }
@@ -24,23 +25,22 @@ public class EmployeeController {
 
     public ResponseEntity<List<EmployeeResponse>> getAllEmployees() {
 
-        return ResponseEntity.ok(employeeService.findAllEmployee());
+        return ResponseEntity.ok(employeeService.findAll());
     }
 
     @PostMapping("/employee")
     public ResponseEntity<Void> createEmployee(
-            @RequestBody final EmployeeCreateRequest employeeCreateRequest) {
-        employeeService.createEmployee(employeeCreateRequest);
+            @RequestBody @Valid final EmployeeCreateRequest employeeCreateRequest) {
+        employeeService.create(employeeCreateRequest);
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/employee/{employee_Id}/password")
-    public ResponseEntity<Void> changePassword(@PathVariable final Long employee_Id,
-                                               @RequestBody final EmployeePasswordChangeRequest employeePasswordChangeRequest) {
-        employeeService.changeEmployeePassword(employee_Id, employeePasswordChangeRequest);
+    @PutMapping("/employee/{id}/password")
+    public ResponseEntity<Void> changePassword(@PathVariable final Long id,
+                                               @Valid @RequestBody final EmployeePasswordChangeRequest employeePasswordChangeRequest) {
+        employeeService.changePassword(id, employeePasswordChangeRequest);
         return ResponseEntity.ok().build();
     }
-
 
 
 }

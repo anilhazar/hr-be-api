@@ -1,30 +1,32 @@
 package com.spring.model.entity;
 
+import java.time.LocalDate;
+
 public class EmployeeEntity {
+
+    private String firstName;
+    private String lastName;
+    private String gender;
+    private LocalDate birthday;
+    private int age;
+    private String email;
     private Long id;
-    private final String firstName;
-
-    private final String lastName;
-
-    private final String gender;
-
-    private final int age;
-
-    private final String email;
-
     private String username;
-
     private String password;
 
+    public EmployeeEntity() {
+    }
 
     public EmployeeEntity(String firstName, String lastName, String gender,
-                          int age, String email) {
+                          LocalDate birthday, int age, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
+        this.birthday = birthday;
         this.age = age;
         this.email = email;
     }
+
 
     public Long getId() {
         return id;
@@ -34,7 +36,7 @@ public class EmployeeEntity {
         this.id = id;
     }
 
-    public String getFirstName() {
+    public String getfirstName() {
         return firstName;
     }
 
@@ -70,5 +72,18 @@ public class EmployeeEntity {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public LocalDate getBirthday() {
+        return birthday;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
 
 }

@@ -1,22 +1,23 @@
 package com.spring.model.entity;
 
-import com.spring.model.enums.RequestType;
 import com.spring.model.enums.Status;
+import com.spring.model.enums.Type;
 
 import java.time.LocalDate;
 
 public class LeaveRequestEntity {
-    private Long id;
-    private RequestType requestType;
-    private Status status;
-    private LocalDate createDate;
-    private LocalDate startDate;
-    private LocalDate endDate;
-    private Long employeeId;
 
-    public LeaveRequestEntity(RequestType requestType, Status status, LocalDate startDate, LocalDate endDate, Long employeeId) {
-        this.requestType = requestType;
-        this.status=status;
+    private final Type type;
+    private final LocalDate createDate = LocalDate.now();
+    private final LocalDate startDate;
+    private final LocalDate endDate;
+    private final Long employeeId;
+    private Long id;
+    private Status status;
+
+    public LeaveRequestEntity(Type type, Status status, LocalDate startDate, LocalDate endDate, Long employeeId) {
+        this.type = type;
+        this.status = status;
         this.startDate = startDate;
         this.endDate = endDate;
         this.employeeId = employeeId;
@@ -30,20 +31,20 @@ public class LeaveRequestEntity {
         this.id = id;
     }
 
-    public RequestType getRequestType() {
-        return requestType;
+    public Type gettype() {
+        return type;
     }
 
     public Status getStatus() {
         return status;
     }
 
-    public LocalDate getCreateDate() {
-        return createDate;
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
-    public void setCreateDate(LocalDate createDate) {
-        this.createDate = createDate;
+    public LocalDate getCreateDate() {
+        return createDate;
     }
 
     public LocalDate getStartDate() {
@@ -56,19 +57,6 @@ public class LeaveRequestEntity {
 
     public Long getEmployeeId() {
         return employeeId;
-    }
-
-    @Override
-    public String toString() {
-        return "LeaveRequestEntity{" +
-                "id=" + id +
-                ", requestType=" + requestType +
-                ", status=" + status +
-                ", createDate=" + createDate +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", employeeId=" + employeeId +
-                '}';
     }
 
 }

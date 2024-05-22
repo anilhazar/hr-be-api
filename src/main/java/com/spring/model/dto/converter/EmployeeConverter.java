@@ -1,25 +1,31 @@
 package com.spring.model.dto.converter;
 
-import com.spring.model.dto.request.employee.EmployeeCreateRequest;
+import com.spring.model.dto.request.EmployeeCreateRequest;
 import com.spring.model.dto.response.EmployeeResponse;
 import com.spring.model.entity.EmployeeEntity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeeConverter {
+public final class EmployeeConverter {
+
+    private EmployeeConverter() {
+
+    }
+
     public static EmployeeEntity toEntity(EmployeeCreateRequest employeeCreateRequest) {
         return new EmployeeEntity(
                 employeeCreateRequest.getFirstName(),
                 employeeCreateRequest.getLastName(),
                 employeeCreateRequest.getGender(),
+                employeeCreateRequest.getBirthday(),
                 employeeCreateRequest.getAge(),
                 employeeCreateRequest.getEmail());
     }
 
     public static EmployeeResponse toResponse(EmployeeEntity employeeEntity) {
         return new EmployeeResponse(
-                employeeEntity.getFirstName(),
+                employeeEntity.getfirstName(),
                 employeeEntity.getLastName(),
                 employeeEntity.getAge(),
                 employeeEntity.getGender(),
