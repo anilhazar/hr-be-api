@@ -25,11 +25,11 @@ public class LeaveRequestCreateRequest {
     @Positive
     private Long employeeId;
 
-    public Type gettype() {
+    public Type getType() {
         return type;
     }
 
-    public void settype(Type type) {
+    public void setType(Type type) {
         this.type = type;
     }
 

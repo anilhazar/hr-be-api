@@ -16,7 +16,7 @@ public final class LeaveRequestConverter {
 
     public static LeaveRequestEntity toEntity(LeaveRequestCreateRequest leaveRequestCreateRequest) {
         return new LeaveRequestEntity(
-                leaveRequestCreateRequest.gettype(),
+                leaveRequestCreateRequest.getType(),
                 Status.PENDING,
                 leaveRequestCreateRequest.getStartDate(),
                 leaveRequestCreateRequest.getEndDate(),
