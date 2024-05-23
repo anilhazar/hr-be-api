@@ -6,7 +6,7 @@ final class LeaveRequestRepositoryConstants {
             + "(type, status, create_date, start_date, end_date, employee_id)"
             + "VALUES (:type, :status, :createDate, :startDate, :endDate, :employeeId)";
     static final String UPDATE_BY_ID = "UPDATE leave_request "
-            + "SET id = :id, type = :type, status = :status, create_date = :createDate, "
+            + "SET type = :type, status = :status, "
             + "start_date = :startDate, end_date = :endDate, employee_id = :employeeId "
             + "WHERE id = :id";
     static final String FIND_BY_ID = "SELECT id, type, status, create_date, start_date, end_date, employee_id "
