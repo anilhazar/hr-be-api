@@ -80,8 +80,8 @@ class LeaveRequestServiceImpl implements LeaveRequestService {
         List<LeaveRequestEntity> leaveRequestEntities = leaveRequestRepository.findByStatus(
                 leaveRequestGetByStatusRequest.getFilter().getId(),
                 leaveRequestGetByStatusRequest.getFilter().getStatus(),
-                leaveRequestGetByStatusRequest.getPaginationRequest().getPageSize(),
-                leaveRequestGetByStatusRequest.getPaginationRequest().getPageNumber());
+                leaveRequestGetByStatusRequest.getPagination().getPageSize(),
+                leaveRequestGetByStatusRequest.getPagination().getPageNumber());
 
         if (leaveRequestEntities.isEmpty()) {
             throw new RuntimeException("No Leaves with status of: " + leaveRequestGetByStatusRequest.getFilter().getStatus() + " and "
