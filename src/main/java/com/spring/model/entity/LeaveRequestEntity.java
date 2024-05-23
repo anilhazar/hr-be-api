@@ -7,13 +7,16 @@ import java.time.LocalDate;
 
 public class LeaveRequestEntity {
 
-    private final Type type;
+    private Type type;
     private final LocalDate createDate = LocalDate.now();
-    private final LocalDate startDate;
-    private final LocalDate endDate;
-    private final Long employeeId;
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private Long employeeId;
     private Long id;
     private Status status;
+
+    public LeaveRequestEntity() {
+    }
 
     public LeaveRequestEntity(Type type, Status status, LocalDate startDate, LocalDate endDate, Long employeeId) {
         this.type = type;
@@ -58,5 +61,6 @@ public class LeaveRequestEntity {
     public Long getEmployeeId() {
         return employeeId;
     }
+
 
 }

@@ -2,7 +2,7 @@ package com.spring.model.dto.request;
 
 import jakarta.validation.constraints.Positive;
 
-public class PaginationRequest {
+public class Pagination {
 
     @Positive
     private int pageSize;
@@ -10,20 +10,19 @@ public class PaginationRequest {
     @Positive
     private int pageNumber;
 
-    public Integer getPageSize() {
+    public int getPageSize() {
         return pageSize;
     }
 
-    public void setPageSize(Integer pageSize) {
+    public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
     }
 
-    public Integer getPageNumber() {
+    public int getPageNumber() {
         return pageNumber;
     }
 
-    public void setPageNumber(Integer pageNumber) {
+    public void setPageNumber(int pageNumber) {
         this.pageNumber = pageNumber;
     }
-
 }

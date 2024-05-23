@@ -9,14 +9,14 @@ public class LeaveRequestGetByStatusRequest {
     private Filter filter;
 
     @NotNull
-    private PaginationRequest paginationRequest;
+    private Pagination pagination;
 
-    public @NotNull PaginationRequest getPagination() {
-        return paginationRequest;
+    public Pagination getPagination() {
+        return pagination;
     }
 
-    public void setPagination(@NotNull PaginationRequest paginationRequest) {
-        this.paginationRequest = paginationRequest;
+    public void setPagination(Pagination pagination) {
+        this.pagination = pagination;
     }
 
     public Filter getFilter() {
